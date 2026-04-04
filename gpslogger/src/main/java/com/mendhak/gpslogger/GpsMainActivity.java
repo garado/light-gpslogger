@@ -396,7 +396,7 @@ public class GpsMainActivity extends AppCompatActivity
                 for (String path : selectedItems) {
                     File file = new File(gpxFolder, path);
                     Uri providedUri = FileProvider.getUriForFile(getApplicationContext(),
-                            "com.mendhak.gpslogger.fileprovider", file);
+                            "com.garado.gpslogger.fileprovider", file);
                     chosenFiles.add(providedUri);
                 }
 
@@ -1828,7 +1828,7 @@ public class GpsMainActivity extends AppCompatActivity
         File f = new File(Files.storageFolder(getApplicationContext()), preferenceHelper.getCurrentProfileName()+".properties");
         LOG.debug("Sharing file " + f.getAbsolutePath());
         if(f.exists()) {
-            String authority = "com.mendhak.gpslogger.fileprovider";
+            String authority = "com.garado.gpslogger.fileprovider";
             Uri uri = FileProvider.getUriForFile(getApplicationContext(), authority, f);
 
             final Intent intent = new Intent(Intent.ACTION_SEND);
