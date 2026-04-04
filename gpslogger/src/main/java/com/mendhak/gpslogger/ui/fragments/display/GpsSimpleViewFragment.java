@@ -116,72 +116,66 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
     private void showPreferencesSummary() {
         showCurrentFileName(Strings.getFormattedFileName());
 
+        // ImageView imgGpx = (ImageView) rootView.findViewById(R.id.simpleview_imgGpx);
+        // ImageView imgKml = (ImageView) rootView.findViewById(R.id.simpleview_imgKml);
+        // ImageView imgCsv = (ImageView) rootView.findViewById(R.id.simpleview_imgCsv);
+        // ImageView imgNmea = (ImageView) rootView.findViewById(R.id.simpleview_imgNmea);
+        // ImageView imgLink = (ImageView) rootView.findViewById(R.id.simpleview_imgLink);
+        // ImageView imgJson = (ImageView)rootView.findViewById(R.id.simpleview_imgjson);
 
-        ImageView imgGpx = (ImageView) rootView.findViewById(R.id.simpleview_imgGpx);
-        ImageView imgKml = (ImageView) rootView.findViewById(R.id.simpleview_imgKml);
-        ImageView imgCsv = (ImageView) rootView.findViewById(R.id.simpleview_imgCsv);
-        ImageView imgNmea = (ImageView) rootView.findViewById(R.id.simpleview_imgNmea);
-        ImageView imgLink = (ImageView) rootView.findViewById(R.id.simpleview_imgLink);
-        ImageView imgJson = (ImageView)rootView.findViewById(R.id.simpleview_imgjson);
-
-        if (preferenceHelper.shouldLogToGpx()) {
-
-            imgGpx.setVisibility(View.VISIBLE);
-        } else {
-            imgGpx.setVisibility(View.GONE);
-        }
-
-        if (preferenceHelper.shouldLogToKml()) {
-
-            imgKml.setVisibility(View.VISIBLE);
-        } else {
-            imgKml.setVisibility(View.GONE);
-        }
-
-        if (preferenceHelper.shouldLogToNmea()) {
-            imgNmea.setVisibility(View.VISIBLE);
-        } else {
-            imgNmea.setVisibility(View.GONE);
-        }
-
-        if (preferenceHelper.shouldLogToCSV()) {
-
-            imgCsv.setVisibility(View.VISIBLE);
-        } else {
-            imgCsv.setVisibility(View.GONE);
-        }
-
-        if (preferenceHelper.shouldLogToCustomUrl()) {
-            imgLink.setVisibility(View.VISIBLE);
-        } else {
-            imgLink.setVisibility(View.GONE);
-        }
-
-        if(preferenceHelper.shouldLogToGeoJSON()){
-            imgJson.setVisibility(View.VISIBLE);
-        }
-        else {
-            imgJson.setVisibility(View.GONE);
-        }
-
+        // if (preferenceHelper.shouldLogToGpx()) {
+        //     imgGpx.setVisibility(View.VISIBLE);
+        // } else {
+        //     imgGpx.setVisibility(View.GONE);
+        // }
+        //
+        // if (preferenceHelper.shouldLogToKml()) {
+        //
+        //     imgKml.setVisibility(View.VISIBLE);
+        // } else {
+        //     imgKml.setVisibility(View.GONE);
+        // }
+        //
+        // if (preferenceHelper.shouldLogToNmea()) {
+        //     imgNmea.setVisibility(View.VISIBLE);
+        // } else {
+        //     imgNmea.setVisibility(View.GONE);
+        // }
+        //
+        // if (preferenceHelper.shouldLogToCSV()) {
+        //
+        //     imgCsv.setVisibility(View.VISIBLE);
+        // } else {
+        //     imgCsv.setVisibility(View.GONE);
+        // }
+        //
+        // if (preferenceHelper.shouldLogToCustomUrl()) {
+        //     imgLink.setVisibility(View.VISIBLE);
+        // } else {
+        //     imgLink.setVisibility(View.GONE);
+        // }
+        //
+        // if(preferenceHelper.shouldLogToGeoJSON()){
+        //     imgJson.setVisibility(View.VISIBLE);
+        // }
+        // else {
+        //     imgJson.setVisibility(View.GONE);
+        // }
+        //
     }
 
-
-
-
     private void showCurrentFileName(String newFileName) {
-        TextView txtFilename = (TextView) rootView.findViewById(R.id.simpleview_txtfilepath);
-
-        txtFilename.setVisibility(View.VISIBLE);
-        txtFilename.setTextIsSelectable(true);
-        txtFilename.setSelectAllOnFocus(true);
-
-        txtFilename.setText(Html.fromHtml("<strong>" + Strings.getFormattedFileName() + "</strong><br />" + preferenceHelper.getGpsLoggerFolder()));
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            Files.setFilePathAsClickableLink(context, txtFilename, preferenceHelper.getGpsLoggerFolder());
-        }
-
+        // TextView txtFilename = (TextView) rootView.findViewById(R.id.simpleview_txtfilepath);
+        //
+        // txtFilename.setVisibility(View.VISIBLE);
+        // txtFilename.setTextIsSelectable(true);
+        // txtFilename.setSelectAllOnFocus(true);
+        //
+        // txtFilename.setText(Html.fromHtml("<strong>" + Strings.getFormattedFileName() + "</strong><br />" + preferenceHelper.getGpsLoggerFolder()));
+        //
+        // if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        //     Files.setFilePathAsClickableLink(context, txtFilename, preferenceHelper.getGpsLoggerFolder());
+        // }
     }
 
     private enum IconColorIndicator {
@@ -244,9 +238,8 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
         ImageView imgPoints = (ImageView) rootView.findViewById(R.id.simpleview_points);
         imgPoints.setOnClickListener(this);
 
-        ImageView imgLink = (ImageView) rootView.findViewById(R.id.simpleview_imgLink);
-        imgLink.setOnClickListener(this);
-
+        // ImageView imgLink = (ImageView) rootView.findViewById(R.id.simpleview_imgLink);
+        // imgLink.setOnClickListener(this);
     }
 
     @Override
@@ -313,17 +306,38 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
     public void displayLocationInfo(Location locationInfo){
         showPreferencesSummary();
 
+        // TextView txtLatitude = (TextView) rootView.findViewById(R.id.simple_lat_text);
+        // txtLatitude.setText(Strings.getFormattedLatitude(locationInfo.getLatitude()));
+
+        // TextView txtLongitude = (TextView) rootView.findViewById(R.id.simple_lon_text);
+        // txtLongitude.setText(Strings.getFormattedLongitude(locationInfo.getLongitude()));
+        //
+        // ImageView imgAccuracy = (ImageView) rootView.findViewById(R.id.simpleview_imgAccuracy);
+        // clearColor(imgAccuracy);
+
+        View dataContainer = rootView.findViewById(R.id.location_data_container);
+        View placeholder = rootView.findViewById(R.id.location_placeholder);
+
+        if (locationInfo == null) {
+            dataContainer.setVisibility(View.GONE);
+            placeholder.setVisibility(View.VISIBLE);
+            return;
+        }
+    
+        dataContainer.setVisibility(View.VISIBLE);
+        placeholder.setVisibility(View.GONE);
+    
         TextView txtLatitude = (TextView) rootView.findViewById(R.id.simple_lat_text);
         txtLatitude.setText(Strings.getFormattedLatitude(locationInfo.getLatitude()));
-
+    
         TextView txtLongitude = (TextView) rootView.findViewById(R.id.simple_lon_text);
         txtLongitude.setText(Strings.getFormattedLongitude(locationInfo.getLongitude()));
-
+    
         ImageView imgAccuracy = (ImageView) rootView.findViewById(R.id.simpleview_imgAccuracy);
         clearColor(imgAccuracy);
 
-        if (locationInfo.hasAccuracy()) {
 
+        if (locationInfo.hasAccuracy()) {
             TextView txtAccuracy = (TextView) rootView.findViewById(R.id.simpleview_txtAccuracy);
             float accuracy = locationInfo.getAccuracy();
             txtAccuracy.setText(Strings.getDistanceDisplay(getActivity(), accuracy, preferenceHelper.shouldDisplayImperialUnits(), true));
@@ -337,6 +351,9 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
             } else {
                 setColor(imgAccuracy, IconColorIndicator.Good);
             }
+        } else {
+            TextView txtAccuracy = (TextView) rootView.findViewById(R.id.simpleview_txtAccuracy);
+            txtAccuracy.setText("-");
         }
 
         ImageView imgAltitude = (ImageView)rootView.findViewById(R.id.simpleview_imgAltitude);
@@ -347,6 +364,9 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
             TextView txtAltitude = (TextView) rootView.findViewById(R.id.simpleview_txtAltitude);
 
             txtAltitude.setText(Strings.getDistanceDisplay(getActivity(), locationInfo.getAltitude(), preferenceHelper.shouldDisplayImperialUnits(), false));
+        } else {
+            TextView txtAltitude = (TextView) rootView.findViewById(R.id.simpleview_txtAltitude);
+            txtAltitude.setText("-");
         }
 
         ImageView imgSpeed = (ImageView)rootView.findViewById(R.id.simpleview_imgSpeed);
@@ -358,6 +378,9 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
 
             TextView txtSpeed = (TextView) rootView.findViewById(R.id.simpleview_txtSpeed);
             txtSpeed.setText(Strings.getSpeedDisplay(getActivity(), locationInfo.getSpeed(), preferenceHelper.shouldDisplayImperialUnits()));
+        } else {
+            TextView txtSpeed = (TextView) rootView.findViewById(R.id.simpleview_txtSpeed);
+            txtSpeed.setText("-");
         }
 
         ImageView imgDirection = (ImageView) rootView.findViewById(R.id.simpleview_imgDirection);
@@ -369,6 +392,9 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
 
             TextView txtDirection = (TextView) rootView.findViewById(R.id.simpleview_txtDirection);
             txtDirection.setText(String.valueOf(Math.round(locationInfo.getBearing())) + getString(R.string.degree_symbol));
+        } else {
+            TextView txtDirection = (TextView) rootView.findViewById(R.id.simpleview_txtDirection);
+            txtDirection.setText("-");
         }
 
         TextView txtDuration = (TextView) rootView.findViewById(R.id.simpleview_txtDuration);
@@ -506,10 +532,9 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
                 toast = getToast(R.string.txt_number_of_points);
                 break;
 
-            case R.id.simpleview_imgLink:
-                toast = getToast(preferenceHelper.getCustomLoggingUrl());
-                break;
-
+            // case R.id.simpleview_imgLink:
+            //     toast = getToast(preferenceHelper.getCustomLoggingUrl());
+            //     break;
         }
 
         int location[] = new int[2];

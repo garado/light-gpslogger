@@ -62,10 +62,10 @@ public class GpsBigViewFragment extends GenericViewFragment implements View.OnTo
 
         displayLocationInfo(session.getCurrentLocationInfo());
 
-        if (session.isStarted()) {
-            Toast.makeText(getActivity().getApplicationContext(), R.string.bigview_taptotoggle, Toast.LENGTH_SHORT).show();
-        }
-
+        // i don't like the popup
+        // if (session.isStarted()) {
+        //     Toast.makeText(getActivity().getApplicationContext(), R.string.bigview_taptotoggle, Toast.LENGTH_SHORT).show();
+        // }
 
         return rootView;
     }
