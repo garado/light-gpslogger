@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="25dp"
+    android:height="10dp"
+    android:viewportWidth="25"
+    android:viewportHeight="10">
+    <!-- Hollow circle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:pathData="M4.9,5 m-4.9,0 a4.9,4.9 0 1,0 9.8,0 a4.9,4.9 0 1,0 -9.8,0" />
+    <!-- Line -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10.5,3.89 H25 V6.11 H10.5 Z" />
+</vector>

@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="25dp"
+    android:height="10dp"
+    android:viewportWidth="25"
+    android:viewportHeight="10">
+    <!-- Line -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M0,3.89 H14.5 V6.11 H0 Z" />
+    <!-- Solid circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M15.1,5 m-4.9,0 a4.9,4.9 0 1,0 9.8,0 a4.9,4.9 0 1,0 -9.8,0" />
+</vector>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/navbarBackground">
+
+    <include
+        android:id="@+id/settings_header"
+        layout="@layout/component_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="37dp"
+            android:paddingEnd="46dp"
+            android:paddingBottom="40dp">
+
+            <!-- App settings -->
+            <TextView
+                android:id="@+id/settings_item_general"
+                style="@style/SettingsItem"
+                android:text="@string/pref_general_title" />
+
+            <TextView
+                android:id="@+id/settings_item_logging"
+                style="@style/SettingsItem"
+                android:text="@string/pref_logging_title" />
+
+            <TextView
+                android:id="@+id/settings_item_performance"
+                style="@style/SettingsItem"
+                android:text="@string/pref_performance_title" />
+
+            <!-- Section: Senders -->
+            <TextView
+                style="@style/SettingsSectionLabel"
+                android:text="Senders"
+                android:paddingTop="40dp" />
+
+            <TextView
+                android:id="@+id/settings_item_autosend"
+                style="@style/SettingsItem"
+                android:text="@string/pref_autosend_title" />
+
+            <TextView
+                android:id="@+id/settings_item_customurl"
+                style="@style/SettingsItem"
+                android:text="@string/log_customurl_setup_title" />
+
+            <TextView
+                android:id="@+id/settings_item_dropbox"
+                style="@style/SettingsItem"
+                android:text="@string/dropbox_setup_title" />
+
+            <TextView
+                android:id="@+id/settings_item_googledrive"
+                style="@style/SettingsItem"
+                android:text="@string/google_drive_setup_title" />
+
+            <TextView
+                android:id="@+id/settings_item_sftp"
+                style="@style/SettingsItem"
+                android:text="@string/sftp_setup_title" />
+
+            <TextView
+                android:id="@+id/settings_item_opengts"
+                style="@style/SettingsItem"
+                android:text="@string/opengts_setup_title" />
+
+            <TextView
+                android:id="@+id/settings_item_osm"
+                style="@style/SettingsItem"
+                android:text="@string/osm_setup_title" />
+
+            <TextView
+                android:id="@+id/settings_item_email"
+                style="@style/SettingsItem"
+                android:text="@string/autoemail_title" />
+
+            <TextView
+                android:id="@+id/settings_item_owncloud"
+                style="@style/SettingsItem"
+                android:text="@string/owncloud_setup_title" />
+
+            <TextView
+                android:id="@+id/settings_item_ftp"
+                style="@style/SettingsItem"
+                android:text="@string/autoftp_setup_title" />
+
+            <!-- Section: Other -->
+            <TextView
+                style="@style/SettingsSectionLabel"
+                android:text="Other"
+                android:paddingTop="40dp" />
+
+            <TextView
+                android:id="@+id/settings_item_faq"
+                style="@style/SettingsItem"
+                android:text="@string/menu_faq" />
+
+            <TextView
+                android:id="@+id/settings_item_exit"
+                style="@style/SettingsItem"
+                android:text="@string/menu_exit" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

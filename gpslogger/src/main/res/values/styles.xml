@@ -63,6 +63,33 @@
     <color name="golden">#ffff8100</color>
 
 
+    <!-- Settings menu item: large white tappable text -->
+    <style name="SettingsItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/navbarIconActive</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:paddingTop">23dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Settings section label: small gray uppercase header -->
+    <style name="SettingsSectionLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/navbarIconInactive</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <color name="navbarBackground">#000000</color>
+    <color name="navbarIconActive">#FFFFFF</color>
+    <color name="navbarIconInactive">#6E6E6E</color>
+
     <color name="colorPrimaryBlack">#000000</color>
     <color name="colorPrimaryBlackDark">#000000</color>
     <color name="colorAccentBlack">#427add</color>

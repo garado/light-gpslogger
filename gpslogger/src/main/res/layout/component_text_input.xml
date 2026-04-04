@@ -31,10 +31,8 @@
             android:background="@null"
             android:paddingTop="2dp"
             android:paddingBottom="6dp"
-            android:inputType="text"
-            android:imeOptions="actionSearch"
-            android:autoCorrect="false"
-            android:capitalize="none" />
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionSearch" />
 
         <ImageButton
             android:id="@+id/text_input_clear"

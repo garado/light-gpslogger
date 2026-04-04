@@ -38,8 +38,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -48,11 +46,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.content.res.ColorStateList;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
+
+import androidx.core.widget.ImageViewCompat;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -62,8 +64,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ActionMenuItemView;
-import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -161,6 +161,7 @@ public class GpsMainActivity extends AppCompatActivity
 
         setUpToolbar();
         setUpNavigationDrawer(savedInstanceState);
+        setupBottomNavbar();
 
         loadDefaultFragmentView();
 
@@ -1074,121 +1075,58 @@ public class GpsMainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbarBottom);
-
-        if(toolbarBottom.getMenu().size() > 0){ return true;}
-
-        toolbarBottom.inflateMenu(R.menu.gps_main);
-        setupEvenlyDistributedToolbar();
-        toolbarBottom.setOnMenuItemClickListener(this);
-
-        enableDisableMenuItems();
-        return true;
+        return false;
     }
 
-    public void setupEvenlyDistributedToolbar(){
-        //http://stackoverflow.com/questions/26489079/evenly-spaced-menu-items-on-toolbar
+    private void setupBottomNavbar() {
+        ImageView navAnnotate = findViewById(R.id.navAnnotate);
+        ImageView navOnePoint = findViewById(R.id.navOnePoint);
+        ImageView navUpload = findViewById(R.id.navUpload);
+        ImageView navShare = findViewById(R.id.navShare);
+        ImageView navSettings = findViewById(R.id.navSettings);
 
-        // Use Display metrics to get Screen Dimensions
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
+        int activeColor = ContextCompat.getColor(this, R.color.navbarIconActive);
+        ImageViewCompat.setImageTintList(navAnnotate, ColorStateList.valueOf(activeColor));
+        ImageViewCompat.setImageTintList(navOnePoint, ColorStateList.valueOf(activeColor));
+        ImageViewCompat.setImageTintList(navUpload, ColorStateList.valueOf(activeColor));
+        ImageViewCompat.setImageTintList(navShare, ColorStateList.valueOf(activeColor));
+        ImageViewCompat.setImageTintList(navSettings, ColorStateList.valueOf(activeColor));
 
-        // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarBottom);
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.content_layout), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
-
-            // Apply the insets as a margin to the view so it doesn't overlap with status bar
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.leftMargin = insets.left;
-            mlp.bottomMargin = insets.bottom;
-            mlp.rightMargin = insets.right;
-            // mlp.topMargin = insets.top;
-            v.setLayoutParams(mlp);
-
-            // Alternatively set the padding on the view itself.
-            // v.setPadding(0, 0, 0, 0);
-
-            // Return CONSUMED if you don't want want the window insets to keep passing down to descendant views.
-            // return windowInsets;
-            return WindowInsetsCompat.CONSUMED;
+        navAnnotate.setOnClickListener(v -> annotate());
+        navOnePoint.setOnClickListener(v -> logSinglePoint());
+        navShare.setOnClickListener(v -> share());
+        navUpload.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(this, navUpload);
+            popup.getMenuInflater().inflate(R.menu.upload_submenu, popup.getMenu());
+            popup.setOnMenuItemClickListener(this::onMenuItemClick);
+            popup.show();
         });
+        navSettings.setOnClickListener(v -> startActivity(new Intent(this, SettingsMenuActivity.class)));
 
-        // Add 10 spacing on either side of the toolbar
-        toolbar.setContentInsetsAbsolute(10, 10);
-
-        // Get the ChildCount of your Toolbar, this should only be 1
-        int childCount = toolbar.getChildCount();
-        // Get the Screen Width in pixels
-        int screenWidth = metrics.widthPixels;
-
-        // Create the Toolbar Params based on the screenWidth
-        Toolbar.LayoutParams toolbarParams = new Toolbar.LayoutParams(screenWidth, Toolbar.LayoutParams.WRAP_CONTENT);
-
-        // Loop through the child Items
-        for(int i = 0; i < childCount; i++){
-            // Get the item at the current index
-            View childView = toolbar.getChildAt(i);
-            // If its a ViewGroup
-            if(childView instanceof ViewGroup){
-                // Set its layout params
-                childView.setLayoutParams(toolbarParams);
-                // Get the child count of this view group, and compute the item widths based on this count & screen size
-                int innerChildCount = ((ViewGroup) childView).getChildCount();
-                int itemWidth  = (screenWidth / innerChildCount);
-                // Create layout params for the ActionMenuView
-                ActionMenuView.LayoutParams params = new ActionMenuView.LayoutParams(itemWidth, Toolbar.LayoutParams.WRAP_CONTENT);
-                // Loop through the children
-                for(int j = 0; j < innerChildCount; j++){
-                    View grandChild = ((ViewGroup) childView).getChildAt(j);
-                    if(grandChild instanceof ActionMenuItemView){
-                        // set the layout parameters on each View
-                        grandChild.setLayoutParams(params);
-                    }
-                }
-            }
-        }
+        enableDisableMenuItems();
     }
 
     private void enableDisableMenuItems() {
-
         onWaitingForLocation(session.isWaitingForLocation());
         setBulbStatus();
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarBottom);
-        MenuItem mnuAnnotate = toolbar.getMenu().findItem(R.id.mnuAnnotate);
-        MenuItem mnuOnePoint = toolbar.getMenu().findItem(R.id.mnuOnePoint);
-        MenuItem mnuAutoSendNow = toolbar.getMenu().findItem(R.id.mnuAutoSendNow);
+        int activeColor = ContextCompat.getColor(this, R.color.navbarIconActive);
+        int inactiveColor = ContextCompat.getColor(this, R.color.navbarIconInactive);
 
-        if (mnuOnePoint != null) {
-            mnuOnePoint.setEnabled(!session.isStarted());
-            mnuOnePoint.setIcon((session.isStarted() ? R.drawable.singlepoint_disabled : R.drawable.singlepoint));
+        ImageView navOnePoint = findViewById(R.id.navOnePoint);
+        if (navOnePoint != null) {
+            boolean enabled = !session.isStarted();
+            navOnePoint.setEnabled(enabled);
+            ImageViewCompat.setImageTintList(navOnePoint, ColorStateList.valueOf(enabled ? activeColor : inactiveColor));
         }
 
-        if (mnuAutoSendNow != null) {
-            mnuAutoSendNow.setEnabled(session.isStarted());
-        }
-
-        if (mnuAnnotate != null) {
-
-            if (!preferenceHelper.shouldLogToCSV() && !preferenceHelper.shouldLogToGpx()
-                    && !preferenceHelper.shouldLogToKml() && !preferenceHelper.shouldLogToCustomUrl()
-                    && !preferenceHelper.shouldLogToGeoJSON()) {
-                mnuAnnotate.setIcon(R.drawable.annotate2_disabled);
-                mnuAnnotate.setEnabled(false);
-            }
-            else {
-                if (session.isAnnotationMarked()) {
-                    mnuAnnotate.setIcon(R.drawable.annotate2_active);
-                }
-                else {
-                    mnuAnnotate.setIcon(R.drawable.annotate2);
-                }
-            }
-
+        ImageView navAnnotate = findViewById(R.id.navAnnotate);
+        if (navAnnotate != null) {
+            boolean hasFileLoggers = preferenceHelper.shouldLogToCSV() || preferenceHelper.shouldLogToGpx()
+                    || preferenceHelper.shouldLogToKml() || preferenceHelper.shouldLogToCustomUrl()
+                    || preferenceHelper.shouldLogToGeoJSON();
+            navAnnotate.setEnabled(hasFileLoggers);
+            ImageViewCompat.setImageTintList(navAnnotate, ColorStateList.valueOf(hasFileLoggers ? activeColor : inactiveColor));
         }
     }
 
