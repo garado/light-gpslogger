@@ -689,8 +689,7 @@ public class GpsMainActivity extends AppCompatActivity
     }
 
     public void setUpToolbar(){
-        // Toolbar removed — status bar flag only
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().setStatusBarColor(android.graphics.Color.BLACK);
     }
 
     public void setUpNavigationDrawer(Bundle savedInstanceState) {
