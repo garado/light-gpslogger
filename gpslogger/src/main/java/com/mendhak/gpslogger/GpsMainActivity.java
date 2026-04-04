@@ -581,13 +581,11 @@ public class GpsMainActivity extends AppCompatActivity
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
         // !!!!!!In case battery saver mode starts causing crashes.!!!!!!
 //        // Adding android:configChanges="uiMode" in AndroidManifest.xml prevents the light/dark mode change
 //        // from restarting the Activity. It raises this event instead.
@@ -687,33 +685,12 @@ public class GpsMainActivity extends AppCompatActivity
 
 
     public Toolbar getToolbar(){
-        return (Toolbar)findViewById(R.id.toolbar);
+        return null;
     }
 
-    @SuppressWarnings("deprecation")
     public void setUpToolbar(){
-        try{
-            Toolbar toolbar = getToolbar();
-            setSupportActionBar(toolbar);
-            if(getSupportActionBar() != null){
-                getSupportActionBar().setDisplayShowTitleEnabled(false);
-            }
-
-
-            //Deprecated in Lollipop but required if targeting 4.x
-            SpinnerAdapter spinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.gps_main_views, R.layout.spinner_dropdown_item);
-            getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-            getSupportActionBar().setListNavigationCallbacks(spinnerAdapter, this);
-            getSupportActionBar().setSelectedNavigationItem(getUserSelectedNavigationItem());
-
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-        catch(Exception ex){
-            //http://stackoverflow.com/questions/26657348/appcompat-v7-v21-0-0-causing-crash-on-samsung-devices-with-android-v4-2-2
-            LOG.error("Thanks for this, Samsung", ex);
-        }
-
+        // Toolbar removed — status bar flag only
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
     public void setUpNavigationDrawer(Bundle savedInstanceState) {
@@ -723,22 +700,17 @@ public class GpsMainActivity extends AppCompatActivity
         drawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
-                getToolbar(),
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
         ) {
-
             public void onDrawerClosed(View view) {
-                invalidateOptionsMenu();
                 if(drawerHeader.isSelectionListShown()){
                     drawerHeader.toggleSelectionList(getApplicationContext());
                 }
             }
-
-            public void onDrawerOpened(View drawerView) {
-                invalidateOptionsMenu();
-            }
+            public void onDrawerOpened(View drawerView) {}
         };
+        drawerLayout.addDrawerListener(drawerToggle);
 
 
         drawerHeader = new AccountHeaderBuilder()
@@ -836,7 +808,6 @@ public class GpsMainActivity extends AppCompatActivity
         materialDrawer = new DrawerBuilder()
                 .withActivity(this)
                 .withSavedInstance(savedInstanceState)
-                .withToolbar(getToolbar())
                 .withActionBarDrawerToggle(drawerToggle)
                 .withDrawerGravity(Gravity.LEFT)
                 .withAccountHeader(drawerHeader)
