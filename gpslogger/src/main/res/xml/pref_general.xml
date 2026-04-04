@@ -4,19 +4,16 @@
 
     <SwitchPreferenceCompat
         android:key="startonbootup"
-        android:summary="@string/startonbootup_summary"
         android:title="@string/startonbootup_title"
         app:iconSpaceReserved="false" />
 
     <SwitchPreferenceCompat
         android:key="startonapplaunch"
-        android:summary="@string/startonapplaunch_summary"
         android:title="@string/startonapplaunch_title"
         app:iconSpaceReserved="false" />
 
     <SwitchPreferenceCompat
         android:key="useImperial"
-        android:summary="@string/display_imperial_summary"
         android:title="@string/display_imperial_title"
         app:iconSpaceReserved="false" />
 
@@ -84,7 +81,6 @@
         android:entryValues="@array/app_theme_values"
         android:icon="@drawable/dark_mode"
         android:key="app_theme_setting"
-        android:summary="@string/app_theme_setting"
         android:title="@string/app_theme_title"
         app:iconSpaceReserved="false" />
 
