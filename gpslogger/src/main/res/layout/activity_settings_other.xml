@@ -7,7 +7,6 @@
     android:background="@color/navbarBackground">
 
     <include
-        android:id="@+id/settings_header"
         layout="@layout/component_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -27,31 +26,10 @@
             android:paddingEnd="46dp"
             android:paddingBottom="40dp">
 
-            <!-- App settings -->
             <TextView
-                android:id="@+id/settings_item_general"
+                android:id="@+id/settings_item_exit"
                 style="@style/SettingsItem"
-                android:text="@string/pref_general_title" />
-
-            <TextView
-                android:id="@+id/settings_item_logging"
-                style="@style/SettingsItem"
-                android:text="@string/pref_logging_title" />
-
-            <TextView
-                android:id="@+id/settings_item_performance"
-                style="@style/SettingsItem"
-                android:text="@string/pref_performance_title" />
-
-            <TextView
-                android:id="@+id/settings_item_senders"
-                style="@style/SettingsItem"
-                android:text="Senders" />
-
-            <TextView
-                android:id="@+id/settings_item_other"
-                style="@style/SettingsItem"
-                android:text="Other" />
+                android:text="@string/menu_exit" />
 
         </LinearLayout>
 

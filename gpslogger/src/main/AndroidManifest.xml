@@ -115,6 +115,16 @@
             android:exported="false" />
 
         <activity
+            android:name=".SettingsSendersActivity"
+            android:parentActivityName=".SettingsMenuActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".SettingsOtherActivity"
+            android:parentActivityName=".SettingsMenuActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainPreferenceActivity"
             android:label="@string/settings_screen_name"
             android:parentActivityName=".GpsMainActivity"
