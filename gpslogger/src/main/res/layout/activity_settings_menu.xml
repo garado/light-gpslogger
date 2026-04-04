@@ -105,10 +105,11 @@
                 android:text="Other"
                 android:paddingTop="40dp" />
 
-            <TextView
-                android:id="@+id/settings_item_faq"
-                style="@style/SettingsItem"
-                android:text="@string/menu_faq" />
+            <!-- Removed because it provides browser access -->
+            <!-- <TextView -->
+            <!--     android:id="@+id/settings_item_faq" -->
+            <!--     style="@style/SettingsItem" -->
+            <!--     android:text="@string/menu_faq" /> -->
 
             <TextView
                 android:id="@+id/settings_item_exit"

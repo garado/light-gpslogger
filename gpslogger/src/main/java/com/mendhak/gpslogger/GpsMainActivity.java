@@ -219,6 +219,27 @@ public class GpsMainActivity extends AppCompatActivity
                         }
                     });
 
+    private final ActivityResultLauncher<Intent> uploadLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                            String action = result.getData().getStringExtra(UploadActivity.EXTRA_ACTION);
+                            if (action == null) return;
+                            switch (action) {
+                                case UploadActivity.ACTION_AUTO_SEND_NOW:  forceAutoSendNow();    break;
+                                case UploadActivity.ACTION_CUSTOM_URL:     uploadToCustomURL();   break;
+                                case UploadActivity.ACTION_DROPBOX:        uploadToDropBox();     break;
+                                case UploadActivity.ACTION_GOOGLE_DRIVE:   uploadToGoogleDrive(); break;
+                                case UploadActivity.ACTION_SFTP:           uploadToSFTP();        break;
+                                case UploadActivity.ACTION_OPEN_GTS:       sendToOpenGTS();       break;
+                                case UploadActivity.ACTION_OSM:            uploadToOpenStreetMap(); break;
+                                case UploadActivity.ACTION_EMAIL:          selectAndEmailFile();  break;
+                                case UploadActivity.ACTION_OWN_CLOUD:      uploadToOwnCloud();    break;
+                                case UploadActivity.ACTION_FTP:            sendToFtp();           break;
+                            }
+                        }
+                    });
+
     private final ActivityResultLauncher<Intent> batteryOptimizationLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -833,7 +854,8 @@ public class GpsMainActivity extends AppCompatActivity
 
         materialDrawer.addItem(new DividerDrawerItem());
 
-        materialDrawer.addStickyFooterItem(GpsLoggerDrawerItem.newPrimary(R.string.menu_faq, null, R.drawable.helpfaq, 9000));
+        // Removed because it provides access to a browser
+        // materialDrawer.addStickyFooterItem(GpsLoggerDrawerItem.newPrimary(R.string.menu_faq, null, R.drawable.helpfaq, 9000));
         materialDrawer.addStickyFooterItem(GpsLoggerDrawerItem.newPrimary(R.string.menu_exit, null, R.drawable.exit, 9001));
 
 
@@ -1075,12 +1097,7 @@ public class GpsMainActivity extends AppCompatActivity
         navAnnotate.setOnClickListener(v -> startActivity(new Intent(this, AnnotationInputActivity.class)));
         navOnePoint.setOnClickListener(v -> logSinglePoint());
         navShare.setOnClickListener(v -> share());
-        navUpload.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(this, navUpload);
-            popup.getMenuInflater().inflate(R.menu.upload_submenu, popup.getMenu());
-            popup.setOnMenuItemClickListener(this::onMenuItemClick);
-            popup.show();
-        });
+        navUpload.setOnClickListener(v -> uploadLauncher.launch(new Intent(this, UploadActivity.class)));
         navViewSwitcher.setOnClickListener(v -> startActivity(new Intent(this, ViewSelectorActivity.class)));
         navSettings.setOnClickListener(v -> startActivity(new Intent(this, SettingsMenuActivity.class)));
 

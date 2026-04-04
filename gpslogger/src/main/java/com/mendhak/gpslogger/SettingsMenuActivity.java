@@ -43,8 +43,8 @@ public class SettingsMenuActivity extends AppCompatActivity {
         item(R.id.settings_item_owncloud,    MainPreferenceActivity.PREFERENCE_FRAGMENTS.OWNCLOUD);
         item(R.id.settings_item_ftp,         MainPreferenceActivity.PREFERENCE_FRAGMENTS.FTP);
 
-        findViewById(R.id.settings_item_faq).setOnClickListener(v ->
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://gpslogger.app"))));
+        // findViewById(R.id.settings_item_faq).setOnClickListener(v ->
+        //         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://gpslogger.app"))));
 
         findViewById(R.id.settings_item_exit).setOnClickListener(v -> {
             EventBus.getDefault().post(new CommandEvents.RequestStartStop(false));
