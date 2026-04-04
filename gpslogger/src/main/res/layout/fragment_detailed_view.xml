@@ -38,7 +38,7 @@
                 <TextView
                     android:id="@+id/detailedview_lat_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55sp"
                     android:textColor="@color/navbarIconActive"
                     android:textSize="48sp"
                     android:maxLines="1"
@@ -51,7 +51,7 @@
                 <TextView
                     android:id="@+id/detailedview_lon_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55sp"
                     android:textColor="@color/navbarIconActive"
                     android:textSize="48sp"
                     android:maxLines="1"
@@ -83,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/navbarIconActive"
+            android:gravity="center"
             android:textSize="14sp"
             android:paddingBottom="24dp"
             android:textIsSelectable="true" />
@@ -127,7 +128,7 @@
         </LinearLayout>
 
         <!-- Divider -->
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/navbarIconActive" android:alpha="0.3" android:layout_marginBottom="32dp" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/navbarIconActive" android:layout_marginBottom="32dp" />
 
         <!-- Settings summary fields -->
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="20dp">
