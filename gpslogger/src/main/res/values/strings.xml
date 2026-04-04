@@ -23,27 +23,27 @@
 
 
     <!-- main form labels -->
-    <string name="txt_latitude">Latitude:</string>
-    <string name="txt_longitude">Longitude:</string>
-    <string name="txt_altitude">Altitude:</string>
-    <string name="txt_speed_kph">Speed (in km/h):</string>
-    <string name="txt_speed">Speed:</string>
-    <string name="txt_direction">Direction:</string>
-    <string name="txt_satellites">Satellites:</string>
-    <string name="txt_accuracy">Accuracy:</string>
-    <string name="txt_travel_distance">Travelled:</string>
+    <string name="txt_latitude">Latitude</string>
+    <string name="txt_longitude">Longitude</string>
+    <string name="txt_altitude">Altitude</string>
+    <string name="txt_speed_kph">Speed (km/h)</string>
+    <string name="txt_speed">Speed</string>
+    <string name="txt_direction">Direction</string>
+    <string name="txt_satellites">Satellites</string>
+    <string name="txt_accuracy">Accuracy</string>
+    <string name="txt_travel_distance">Travelled</string>
     <string name="btn_start_logging">Start Logging</string>
     <string name="btn_stop_logging">Stop Logging</string>
 
 
     <string name="gpslogger_still_running">GPSLogger is still running.</string>
 
-    <string name="summary_loggingto">Logging to:</string>
+    <string name="summary_loggingto">Logging to</string>
     <string name="summary_loggingto_screen">screen only</string>
-    <string name="summary_freq_every">Frequency:</string>
+    <string name="summary_freq_every">Frequency</string>
     <string name="summary_freq_max">maximum</string>
-    <string name="summary_dist">Distance:</string>
-    <string name="summary_current_filename">File:</string>
+    <string name="summary_dist">Distance</string>
+    <string name="summary_current_filename">File</string>
 
 
     <string name="sharing_location_only">Location only</string>
@@ -51,10 +51,10 @@
     <string name="sharing_via">Share via</string>
 
     <!-- general -->
-    <string name="foot">&#160;foot</string>
-    <string name="feet">&#160;feet</string>
-    <string name="meter">&#160;meter</string>
-    <string name="meters">&#160;meters</string>
+    <string name="foot">&#160;ft</string>
+    <string name="feet">&#160;ft</string>
+    <string name="meter">&#160;m</string>
+    <string name="meters">&#160;m</string>
     <string name="error">Error</string>
     <string name="error_connection">Connection Error. Please check your phone settings.</string>
 
@@ -64,12 +64,12 @@
     <string name="hours">&#160;hrs</string>
 
 
-    <string name="gpsprovider_unavailable">No GPS provider available. Please check your location settings and enable a  location provider.
+    <string name="gpsprovider_unavailable">No GPS provider available. Please check your location settings and enable a location provider.
     </string>
     <string name="started">Started</string>
     <string name="providername_gps">GPS satellites</string>
     <string name="providername_celltower">cell towers</string>
-    <string name="not_applicable">n/a</string>
+    <string name="not_applicable">-</string>
     <string name="meters_per_second">&#160;m/s</string>
     <string name="feet_per_second">&#160;ft/s</string>
     <string name="miles_per_hour">&#160;mi/h</string>
@@ -361,7 +361,7 @@
     <string name="new_file_custom_message">You can use %SER for device serial, %YEAR, %MONTH, %MONTHNAME, %DAY, %DAYNAME, %HOUR, %MIN, %PROFILE, %VER for version</string>
     <string name="new_file_prefix_serial_title">Prefix unique string to the file name</string>
     <string name="new_file_prefix_serial_summary">On Android 8 onwards, a unique Android ID is used. Pre-Android 8, the build serial number, found in your phone status, is used.</string>
-    <string name="txt_travel_duration">Duration:</string>
+    <string name="txt_travel_duration">Duration</string>
 
     <string name="menu_onepoint">Log one point</string>
 

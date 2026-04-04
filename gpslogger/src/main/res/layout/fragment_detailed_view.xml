@@ -10,44 +10,67 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingStart="37dp"
-        android:paddingEnd="37dp"
-        android:paddingTop="32dp"
-        android:paddingBottom="32dp">
+        android:paddingEnd="37dp">
 
-        <!-- Lat / Lon -->
-        <TextView
-            android:id="@+id/detailedview_lat_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/navbarIconActive"
-            android:textSize="36sp"
-            android:maxLines="1"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeMaxTextSize="36sp"
-            android:textIsSelectable="true" />
+        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/detailedview_lon_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/navbarIconActive"
-            android:textSize="36sp"
-            android:maxLines="1"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeMaxTextSize="36sp"
-            android:textIsSelectable="true" />
+            <TextView
+                android:id="@+id/location_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Waiting for GPS..."
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/navbarIconActive"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/detailed_data_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/detailedview_lat_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/navbarIconActive"
+                    android:textSize="48sp"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeMaxTextSize="48sp"
+                    android:gravity="center"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/detailedview_lon_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/navbarIconActive"
+                    android:textSize="48sp"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeMaxTextSize="48sp"
+                    android:gravity="center"
+                    android:textIsSelectable="true" />
+            </LinearLayout>
+
+        </FrameLayout>
 
         <!-- Play/Pause -->
         <ImageView
             android:id="@+id/btnActionProcess"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
             android:src="@drawable/ic_play"
             android:contentDescription="Start/Stop logging"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -59,7 +82,7 @@
             android:id="@+id/detailedview_datetime_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/navbarIconInactive"
+            android:textColor="@color/navbarIconActive"
             android:textSize="14sp"
             android:paddingBottom="24dp"
             android:textIsSelectable="true" />
@@ -67,75 +90,75 @@
         <!-- GPS fields -->
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingBottom="20dp">
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_altitude_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_altitude" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_altitude_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+                <TextView android:id="@+id/detailedview_altitude_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_altitude" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_altitude_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
             </LinearLayout>
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_speed_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_speed" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_speed_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingBottom="20dp">
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_direction_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_direction" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_direction_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
-            </LinearLayout>
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_satellites_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_satellites" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_satellites_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+                <TextView android:id="@+id/detailedview_speed_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_speed" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_speed_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingBottom="20dp">
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_accuracy_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_accuracy" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_accuracy_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+                <TextView android:id="@+id/detailedview_direction_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_direction" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_direction_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
             </LinearLayout>
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_travelled_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_travel_distance" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_travelled_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+                <TextView android:id="@+id/detailedview_satellites_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_satellites" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_satellites_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingBottom="20dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:id="@+id/detailedview_accuracy_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_accuracy" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_accuracy_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:id="@+id/detailedview_travelled_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_travel_distance" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_travelled_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="32dp">
-            <TextView android:id="@+id/detailedview_duration_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_travel_duration" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-            <TextView android:id="@+id/detailedview_duration_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+            <TextView android:id="@+id/detailedview_duration_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/txt_travel_duration" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+            <TextView android:id="@+id/detailedview_duration_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
         </LinearLayout>
 
         <!-- Divider -->
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/navbarIconInactive" android:alpha="0.3" android:layout_marginBottom="32dp" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/navbarIconActive" android:alpha="0.3" android:layout_marginBottom="32dp" />
 
         <!-- Settings summary fields -->
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="20dp">
-            <TextView android:id="@+id/detailedview_loggingto_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_loggingto" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-            <TextView android:id="@+id/detailedview_loggingto_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+            <TextView android:id="@+id/detailedview_loggingto_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_loggingto" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+            <TextView android:id="@+id/detailedview_loggingto_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingBottom="20dp">
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_frequency_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_freq_every" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_frequency_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+                <TextView android:id="@+id/detailedview_frequency_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_freq_every" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_frequency_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
             </LinearLayout>
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_distance_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_dist" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_distance_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+                <TextView android:id="@+id/detailedview_distance_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_dist" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_distance_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="20dp">
-            <TextView android:id="@+id/detailedview_file_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_current_filename" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
+            <TextView android:id="@+id/detailedview_file_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_current_filename" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
             <TextView android:id="@+id/detailedview_file_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="14sp" android:textIsSelectable="true" />
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingBottom="20dp">
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_autosend_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_autosend" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_autosend_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+                <TextView android:id="@+id/detailedview_autosend_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_autosend" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_autosend_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
             </LinearLayout>
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                <TextView android:id="@+id/detailedview_autosendtargets_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_autosendtargets" android:textColor="@color/navbarIconInactive" android:textSize="13sp" />
-                <TextView android:id="@+id/detailedview_autosendtargets_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="20sp" android:textIsSelectable="true" />
+                <TextView android:id="@+id/detailedview_autosendtargets_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/summary_autosendtargets" android:textColor="@color/navbarIconActive" android:textSize="13sp" />
+                <TextView android:id="@+id/detailedview_autosendtargets_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/navbarIconActive" android:textSize="26sp" android:textIsSelectable="true" />
             </LinearLayout>
         </LinearLayout>
 

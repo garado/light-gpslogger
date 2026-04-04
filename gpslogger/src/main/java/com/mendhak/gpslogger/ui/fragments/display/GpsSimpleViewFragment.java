@@ -422,44 +422,44 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
     private void clearLocationDisplay() {
 
         TextView txtLatitude = (TextView) rootView.findViewById(R.id.simple_lat_text);
-        txtLatitude.setText("");
+        txtLatitude.setText("-");
 
         TextView txtLongitude = (TextView) rootView.findViewById(R.id.simple_lon_text);
-        txtLongitude.setText("");
+        txtLongitude.setText("-");
 
         ImageView imgAccuracy = (ImageView)rootView.findViewById(R.id.simpleview_imgAccuracy);
         clearColor(imgAccuracy);
 
         TextView txtAccuracy = (TextView) rootView.findViewById(R.id.simpleview_txtAccuracy);
-        txtAccuracy.setText("");
+        txtAccuracy.setText("-");
 
         ImageView imgAltitude = (ImageView)rootView.findViewById(R.id.simpleview_imgAltitude);
         clearColor(imgAltitude);
 
         TextView txtAltitude = (TextView) rootView.findViewById(R.id.simpleview_txtAltitude);
-        txtAltitude.setText("");
+        txtAltitude.setText("-");
 
         ImageView imgDirection = (ImageView)rootView.findViewById(R.id.simpleview_imgDirection);
         clearColor(imgDirection);
 
         TextView txtDirection = (TextView) rootView.findViewById(R.id.simpleview_txtDirection);
-        txtDirection.setText("");
+        txtDirection.setText("-");
 
         ImageView imgSpeed = (ImageView)rootView.findViewById(R.id.simpleview_imgSpeed);
         clearColor(imgSpeed);
 
         TextView txtSpeed = (TextView) rootView.findViewById(R.id.simpleview_txtSpeed);
-        txtSpeed.setText("");
+        txtSpeed.setText("-");
 
 
         TextView txtDuration = (TextView) rootView.findViewById(R.id.simpleview_txtDuration);
-        txtDuration.setText("");
+        txtDuration.setText("-");
 
         TextView txtPoints = (TextView) rootView.findViewById(R.id.simpleview_txtPoints);
         TextView txtTravelled = (TextView) rootView.findViewById(R.id.simpleview_txtDistance);
 
-        txtPoints.setText("");
-        txtTravelled.setText("");
+        txtPoints.setText("-");
+        txtTravelled.setText("-");
     }
 
 

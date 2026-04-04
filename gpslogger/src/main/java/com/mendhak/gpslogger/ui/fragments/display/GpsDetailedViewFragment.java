@@ -269,17 +269,16 @@ public class GpsDetailedViewFragment extends GenericViewFragment {
         TextView txtTravelled = (TextView) rootView.findViewById(R.id.detailedview_travelled_text);
         TextView txtTime = (TextView) rootView.findViewById(R.id.detailedview_duration_text);
 
-        tvLatitude.setText("");
-        tvLongitude.setText("");
-        tvDateTime.setText("");
-        tvAltitude.setText("");
-        txtSpeed.setText("");
-        txtSatellites.setText("");
-        txtAccuracy.setText("");
-        txtDirection.setText("");
-        txtTravelled.setText("");
-        txtTime.setText("");
-
+        tvLatitude.setText("-");
+        tvLongitude.setText("-");
+        tvDateTime.setText("-");
+        tvAltitude.setText("-");
+        txtSpeed.setText("-");
+        txtSatellites.setText("-");
+        txtAccuracy.setText("-");
+        txtDirection.setText("-");
+        txtTravelled.setText("-");
+        txtTime.setText("-");
     }
 
     @EventBusHook
@@ -310,9 +309,17 @@ public class GpsDetailedViewFragment extends GenericViewFragment {
     }
 
     public void displayLocationInfo(Location locationInfo){
+        View dataContainer = rootView.findViewById(R.id.detailed_data_container);
+        View placeholder = rootView.findViewById(R.id.location_placeholder);
+
         if (locationInfo == null) {
-            return;
+            dataContainer.setVisibility(View.GONE);
+            placeholder.setVisibility(View.VISIBLE);
+            return; 
         }
+
+        dataContainer.setVisibility(View.VISIBLE);
+        placeholder.setVisibility(View.GONE);
 
         showPreferencesAndMessages();
 
