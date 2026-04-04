@@ -36,7 +36,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
-import com.dd.processbutton.iml.ActionProcessButton;
 import com.mendhak.gpslogger.R;
 import com.mendhak.gpslogger.common.EventBusHook;
 import com.mendhak.gpslogger.common.PreferenceHelper;
@@ -57,7 +56,7 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
     private Session session = Session.getInstance();
 
     private View rootView;
-    private ActionProcessButton actionButton;
+    private ImageView actionButton;
 
     public GpsSimpleViewFragment() {
 
@@ -95,16 +94,8 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
         setImageTooltips();
         showPreferencesSummary();
 
-        actionButton = (ActionProcessButton)rootView.findViewById(R.id.btnActionProcess);
-        actionButton.setMode(ActionProcessButton.Mode.ENDLESS);
-        actionButton.setBackgroundColor(ContextCompat.getColor(context, (R.color.accentColor)));
-
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestToggleLogging();
-            }
-        });
+        actionButton = (ImageView) rootView.findViewById(R.id.btnActionProcess);
+        actionButton.setOnClickListener(v -> requestToggleLogging());
 
 
         if (session.hasValidLocation()) {
@@ -115,15 +106,11 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
     }
 
     private void setActionButtonStart(){
-        actionButton.setText(R.string.btn_start_logging);
-        actionButton.setBackgroundColor(ContextCompat.getColor(context, R.color.accentColor));
-        actionButton.setAlpha(0.8f);
+        actionButton.setImageResource(R.drawable.ic_play);
     }
 
     private void setActionButtonStop(){
-        actionButton.setText(R.string.btn_stop_logging);
-        actionButton.setBackgroundColor( ContextCompat.getColor(context, R.color.accentColorComplementary));
-        actionButton.setAlpha(0.8f);
+        actionButton.setImageResource(R.drawable.ic_pause);
     }
 
     private void showPreferencesSummary() {
@@ -326,10 +313,10 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
     public void displayLocationInfo(Location locationInfo){
         showPreferencesSummary();
 
-        EditText txtLatitude = (EditText) rootView.findViewById(R.id.simple_lat_text);
+        TextView txtLatitude = (TextView) rootView.findViewById(R.id.simple_lat_text);
         txtLatitude.setText(Strings.getFormattedLatitude(locationInfo.getLatitude()));
 
-        EditText txtLongitude = (EditText) rootView.findViewById(R.id.simple_lon_text);
+        TextView txtLongitude = (TextView) rootView.findViewById(R.id.simple_lon_text);
         txtLongitude.setText(Strings.getFormattedLongitude(locationInfo.getLongitude()));
 
         ImageView imgAccuracy = (ImageView) rootView.findViewById(R.id.simpleview_imgAccuracy);
@@ -408,10 +395,10 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
 
     private void clearLocationDisplay() {
 
-        EditText txtLatitude = (EditText) rootView.findViewById(R.id.simple_lat_text);
+        TextView txtLatitude = (TextView) rootView.findViewById(R.id.simple_lat_text);
         txtLatitude.setText("");
 
-        EditText txtLongitude = (EditText) rootView.findViewById(R.id.simple_lon_text);
+        TextView txtLongitude = (TextView) rootView.findViewById(R.id.simple_lon_text);
         txtLongitude.setText("");
 
         ImageView imgAccuracy = (ImageView)rootView.findViewById(R.id.simpleview_imgAccuracy);
@@ -476,19 +463,11 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
         LOG.debug(inProgress + "");
 
         if(!session.isStarted()){
-            actionButton.setProgress(0);
             setActionButtonStart();
             return;
         }
 
-        if(inProgress){
-            actionButton.setProgress(1);
-            setActionButtonStop();
-        }
-        else {
-            actionButton.setProgress(0);
-            setActionButtonStop();
-        }
+        setActionButtonStop();
     }
 
 
