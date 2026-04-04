@@ -15,6 +15,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:paddingBottom="12dp">
 
         <CheckBox
@@ -23,17 +24,19 @@
             android:text="@string/logview_showlocationsonly"
             android:textColor="@color/navbarIconActive"
             android:button="@drawable/toggle_selector"
-            android:paddingStart="12dp"
+            android:background="@null"
+            android:textSize="16dp"
             android:id="@+id/logview_chkLocationsOnly"/>
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:text="@string/btn_start_logging"
             android:textColor="@color/navbarIconActive"
             android:button="@drawable/toggle_selector"
-            android:paddingStart="12dp"
-            android:layout_marginStart="24dp"
+            android:background="@null"
+            android:textSize="16dp"
             android:id="@+id/logview_startLogging"/>
 
     </LinearLayout>

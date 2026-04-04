@@ -240,6 +240,44 @@ public class GpsMainActivity extends AppCompatActivity
                         }
                     });
 
+    private final ActivityResultLauncher<Intent> fileShareLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) return;
+                        ArrayList<String> selectedItems = result.getData().getStringArrayListExtra(FileShareActivity.EXTRA_SELECTED);
+                        if (selectedItems == null || selectedItems.isEmpty()) return;
+
+                        if (selectedItems.contains(getString(R.string.sharing_location_only))) {
+                            final Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.setType("text/plain");
+                            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.sharing_mylocation));
+                            if (session.hasValidLocation()) {
+                                String bodyText = String.format("http://maps.google.com/maps?q=%s,%s",
+                                        String.valueOf(session.getCurrentLatitude()),
+                                        String.valueOf(session.getCurrentLongitude()));
+                                intent.putExtra(Intent.EXTRA_TEXT, bodyText);
+                                intent.putExtra("sms_body", bodyText);
+                                startActivity(Intent.createChooser(intent, getString(R.string.sharing_via)));
+                            }
+                        } else {
+                            final Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "Here are some files.");
+                            intent.setType("*/*");
+
+                            ArrayList<Uri> chosenFiles = new ArrayList<>();
+                            final File gpxFolder = new File(preferenceHelper.getGpsLoggerFolder());
+                            for (String path : selectedItems) {
+                                File file = new File(gpxFolder, path);
+                                Uri providedUri = FileProvider.getUriForFile(getApplicationContext(),
+                                        "com.garado.gpslogger.fileprovider", file);
+                                chosenFiles.add(providedUri);
+                            }
+                            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, chosenFiles);
+                            startActivity(Intent.createChooser(intent, getString(R.string.sharing_via)));
+                        }
+                    });
+
     private final ActivityResultLauncher<Intent> batteryOptimizationLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -381,49 +419,6 @@ public class GpsMainActivity extends AppCompatActivity
                 userInvokedUpload = true;
                 FileSender sender = FileSenderFactory.getSenderByName(senderName);
                 sender.uploadFile(chosenFiles);
-            }
-            return true;
-        }
-
-        if(dialogTag.equalsIgnoreCase("FILE_SHARE_DIALOG") && which == BUTTON_POSITIVE){
-            ArrayList<String> selectedItems = extras.getStringArrayList(SimpleListDialog.SELECTED_LABELS);
-            if (selectedItems.size() <= 0) {
-                return true;
-            }
-
-            if(selectedItems.contains(getString(R.string.sharing_location_only))){
-                final Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.sharing_mylocation));
-                if (session.hasValidLocation()) {
-                    String bodyText = String.format("http://maps.google.com/maps?q=%s,%s",
-                            String.valueOf(session.getCurrentLatitude()),
-                            String.valueOf(session.getCurrentLongitude()));
-                    intent.putExtra(Intent.EXTRA_TEXT, bodyText);
-                    intent.putExtra("sms_body", bodyText);
-                    startActivity(Intent.createChooser(intent, getString(R.string.sharing_via)));
-                }
-            }
-            else {
-
-                final Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setAction(Intent.ACTION_SEND_MULTIPLE);
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Here are some files.");
-                intent.setType("*/*");
-
-                ArrayList<Uri> chosenFiles = new ArrayList<>();
-                final File gpxFolder = new File(preferenceHelper.getGpsLoggerFolder());
-
-                for (String path : selectedItems) {
-                    File file = new File(gpxFolder, path);
-                    Uri providedUri = FileProvider.getUriForFile(getApplicationContext(),
-                            "com.garado.gpslogger.fileprovider", file);
-                    chosenFiles.add(providedUri);
-                }
-
-                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, chosenFiles);
-                startActivity(Intent.createChooser(intent, getString(R.string.sharing_via)));
             }
             return true;
         }
@@ -1096,7 +1091,7 @@ public class GpsMainActivity extends AppCompatActivity
 
         navAnnotate.setOnClickListener(v -> startActivity(new Intent(this, AnnotationInputActivity.class)));
         navOnePoint.setOnClickListener(v -> logSinglePoint());
-        navShare.setOnClickListener(v -> share());
+        navShare.setOnClickListener(v -> fileShareLauncher.launch(new Intent(this, FileShareActivity.class)));
         navUpload.setOnClickListener(v -> uploadLauncher.launch(new Intent(this, UploadActivity.class)));
         navViewSwitcher.setOnClickListener(v -> startActivity(new Intent(this, ViewSelectorActivity.class)));
         navSettings.setOnClickListener(v -> startActivity(new Intent(this, SettingsMenuActivity.class)));
@@ -1145,7 +1140,7 @@ public class GpsMainActivity extends AppCompatActivity
                 logSinglePoint();
                 return true;
             case R.id.mnuShare:
-                share();
+                fileShareLauncher.launch(new Intent(this, FileShareActivity.class));
                 return true;
             case R.id.mnuOSM:
                 uploadToOpenStreetMap();
@@ -1353,52 +1348,6 @@ public class GpsMainActivity extends AppCompatActivity
 
         }
     }
-
-    /**
-     * Allows user to send a GPX/KML file along with location, or location only
-     * using a provider. 'Provider' means any application that can accept such
-     * an intent (Facebook, SMS, Twitter, Email, K-9, Bluetooth)
-     */
-    private void share() {
-
-        try {
-
-            final String locationOnly = getString(R.string.sharing_location_only);
-            final File gpxFolder = new File(preferenceHelper.getGpsLoggerFolder());
-            if (gpxFolder.exists()) {
-
-                File[] enumeratedFiles = Files.fromFolder(gpxFolder);
-
-                Arrays.sort(enumeratedFiles, new Comparator<File>() {
-                    public int compare(File f1, File f2) {
-                        return -1 * Long.valueOf(f1.lastModified()).compareTo(f2.lastModified());
-                    }
-                });
-
-                List<String> fileList = new ArrayList<>(enumeratedFiles.length);
-
-                for (File f : enumeratedFiles) {
-                    fileList.add(f.getName());
-                }
-
-                fileList.add(0, locationOnly);
-                final String[] files = fileList.toArray(new String[fileList.size()]);
-
-                SimpleListDialog.build()
-                        .title(R.string.osm_pick_file)
-                        .items(files)
-                        .choiceMode(CustomListDialog.MULTI_CHOICE)
-                        .show(GpsMainActivity.this, "FILE_SHARE_DIALOG");
-
-
-            } else {
-                Dialogs.alert(getString(R.string.sorry), getString(R.string.no_files_found), this);
-            }
-        } catch (Exception ex) {
-            LOG.error("Sharing problem", ex);
-        }
-    }
-
 
     /**
      * Provides a connection to the GPS Logging Service

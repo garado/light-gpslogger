@@ -1,16 +1,14 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="30dp"
-    android:height="10dp"
-    android:viewportWidth="30"
-    android:viewportHeight="10">
-    <!-- Hollow circle -->
+    android:width="34dp"
+    android:height="14dp"
+    android:viewportWidth="34"
+    android:viewportHeight="14">
     <path
         android:fillColor="#00000000"
         android:strokeColor="#FFFFFF"
         android:strokeWidth="2"
-        android:pathData="M1,5 m-1,0 a1,1 0 1,0 7,0 a1,1 0 1,0 -7,0" />
-    <!-- Line -->
+        android:pathData="M7,7 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0" />
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M8.5,3.89 H20 V6.11 H5.5 Z" />
+        android:pathData="M11,5.89 H23 V8.11 H11 Z" />
 </vector>

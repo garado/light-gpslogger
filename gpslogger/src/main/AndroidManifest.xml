@@ -97,6 +97,7 @@
             android:parentActivityName=".GpsMainActivity"
             android:exported="false" />
 
+        <activity android:name=".FileShareActivity"            android:exported="false" />
         <activity android:name=".SettingsGeneralActivity"     android:exported="false" />
         <activity android:name=".SettingsLoggingActivity"     android:exported="false" />
         <activity android:name=".SettingsPerformanceActivity" android:exported="false" />
