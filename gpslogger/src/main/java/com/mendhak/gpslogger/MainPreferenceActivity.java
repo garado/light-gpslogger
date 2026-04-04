@@ -20,14 +20,13 @@
 package com.mendhak.gpslogger;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.preference.PreferenceFragmentCompat;
 
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import com.mendhak.gpslogger.common.PreferenceHelper;
 import com.mendhak.gpslogger.common.Systems;
@@ -70,11 +69,7 @@ public class MainPreferenceActivity extends AppCompatActivity {
             return windowInsets;
         });
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        findViewById(R.id.header_back_button).setOnClickListener(v -> onBackPressed());
 
         String whichFragment = PREFERENCE_FRAGMENTS.GENERAL;
 
@@ -88,61 +83,63 @@ public class MainPreferenceActivity extends AppCompatActivity {
             whichFragment = PREFERENCE_FRAGMENTS.OSM;
         }
 
+        String headerTitle = "";
         switch(whichFragment){
             case PREFERENCE_FRAGMENTS.GENERAL:
-                setTitle(R.string.settings_screen_name);
+                headerTitle = getString(R.string.settings_screen_name);
                 preferenceFragmentCompat = new GeneralSettingsFragment();
                 break;
             case PREFERENCE_FRAGMENTS.LOGGING:
-                setTitle(R.string.pref_logging_title);
+                headerTitle = getString(R.string.pref_logging_title);
                 preferenceFragmentCompat = new LoggingSettingsFragment();
                 break;
             case PREFERENCE_FRAGMENTS.PERFORMANCE:
-                setTitle(R.string.pref_performance_title);
+                headerTitle = getString(R.string.pref_performance_title);
                 preferenceFragmentCompat = new PerformanceSettingsFragment();
                 break;
             case PREFERENCE_FRAGMENTS.UPLOAD:
-                setTitle(R.string.title_drawer_uploadsettings);
+                headerTitle = getString(R.string.title_drawer_uploadsettings);
                 preferenceFragmentCompat = new UploadSettingsFragment();
                 break;
             case PREFERENCE_FRAGMENTS.FTP:
-                setTitle(R.string.autoftp_setup_title);
+                headerTitle = getString(R.string.autoftp_setup_title);
                 preferenceFragmentCompat = new FtpFragment();
                 break;
             case PREFERENCE_FRAGMENTS.EMAIL:
-                setTitle(R.string.autoemail_title);
+                headerTitle = getString(R.string.autoemail_title);
                 preferenceFragmentCompat = new AutoEmailFragment();
                 break;
             case PREFERENCE_FRAGMENTS.OPENGTS:
-                setTitle(R.string.opengts_setup_title);
+                headerTitle = getString(R.string.opengts_setup_title);
                 preferenceFragmentCompat = new OpenGTSFragment();
                 break;
             case PREFERENCE_FRAGMENTS.CUSTOMURL:
-                setTitle(R.string.log_customurl_title);
+                headerTitle = getString(R.string.log_customurl_title);
                 preferenceFragmentCompat = new CustomUrlFragment();
                 break;
             case PREFERENCE_FRAGMENTS.DROPBOX:
-                setTitle(R.string.dropbox_setup_title);
+                headerTitle = getString(R.string.dropbox_setup_title);
                 preferenceFragmentCompat = new DropboxAuthorizationFragment();
                 break;
             case PREFERENCE_FRAGMENTS.GOOGLEDRIVE:
-                setTitle("Google Drive");
+                headerTitle = "Google Drive";
                 preferenceFragmentCompat = new GoogleDriveSettingsFragment();
                 break;
             case PREFERENCE_FRAGMENTS.OSM:
-                setTitle(R.string.osm_setup_title);
+                headerTitle = getString(R.string.osm_setup_title);
                 preferenceFragmentCompat = new OSMAuthorizationFragment();
                 break;
             case PREFERENCE_FRAGMENTS.OWNCLOUD:
-                setTitle(R.string.owncloud_setup_title);
+                headerTitle = getString(R.string.owncloud_setup_title);
                 preferenceFragmentCompat = new OwnCloudSettingsFragment();
                 break;
             case PREFERENCE_FRAGMENTS.SFTP:
-                setTitle(R.string.sftp_setup_title);
+                headerTitle = getString(R.string.sftp_setup_title);
                 preferenceFragmentCompat = new SFTPSettingsFragment();
                 break;
         }
 
+        ((TextView) findViewById(R.id.header_title)).setText(headerTitle);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, preferenceFragmentCompat).commit();
     }
 
@@ -166,14 +163,6 @@ public class MainPreferenceActivity extends AppCompatActivity {
         }
 
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        final int id = item.getItemId();
-        return id == android.R.id.home && !isFormValid();
-
     }
 
     public static class PREFERENCE_FRAGMENTS {

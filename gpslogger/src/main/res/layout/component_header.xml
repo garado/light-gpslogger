@@ -37,7 +37,7 @@
         android:ellipsize="end"
         android:textColor="@color/navbarIconActive"
         android:textSize="20sp"
-        android:paddingTop="2dp" />
+        android:paddingTop="-3dp" />
 
     <!-- Right action button (hide with android:visibility="invisible" to preserve spacing) -->
     <ImageButton

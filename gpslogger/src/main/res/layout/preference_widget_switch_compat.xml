@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shadows the preference library's preference_widget_switch_compat.xml.
+     Uses a CheckBox (Checkable) with our toggle_selector drawable so that
+     SwitchPreferenceCompat renders the ToggleSwitch.tsx design. -->
+<CheckBox
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/switchWidget"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:button="@drawable/toggle_selector"
+    android:paddingStart="0dp"
+    android:focusable="false"
+    android:clickable="false"
+    android:background="@null" />

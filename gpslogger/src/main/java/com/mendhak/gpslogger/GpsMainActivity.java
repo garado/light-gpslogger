@@ -1401,26 +1401,7 @@ public class GpsMainActivity extends AppCompatActivity
 
 
     private void setBulbStatus() {
-        ImageView bulb = (ImageView) findViewById(R.id.notification_bulb);
-
-        if (!session.isStarted()) {
-            bulb.setImageResource(R.drawable.circle_none);
-            bulb.setOnClickListener(null);
-        } else {
-            if (session.isLocationServiceUnavailable()) {
-                bulb.setImageResource(R.drawable.circle_warning);
-                bulb.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(GpsMainActivity.this, R.string.gpsprovider_unavailable, Toast.LENGTH_LONG).show();
-                    }
-                });
-            } else {
-                bulb.setImageResource(session.isStarted() ? R.drawable.circle_green : R.drawable.circle_none);
-                bulb.setOnClickListener(null);
-            }
-
-        }
+        return; // I don't like the status indicator, so it's removed here
     }
 
     /**
@@ -1490,8 +1471,8 @@ public class GpsMainActivity extends AppCompatActivity
     }
 
     public void onWaitingForLocation(boolean inProgress) {
-        ProgressBar fixBar = (ProgressBar) findViewById(R.id.progressBarGpsFix);
-        fixBar.setVisibility(inProgress ? View.VISIBLE : View.INVISIBLE);
+        // ProgressBar fixBar = (ProgressBar) findViewById(R.id.progressBarGpsFix);
+        // fixBar.setVisibility(inProgress ? View.VISIBLE : View.INVISIBLE);
     }
 
 

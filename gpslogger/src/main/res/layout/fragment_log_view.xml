@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:text="@string/logview_showlocationsonly"
             android:textColor="@color/navbarIconActive"
-            android:buttonTint="@color/navbarIconActive"
+            android:button="@drawable/toggle_selector"
+            android:paddingStart="12dp"
             android:id="@+id/logview_chkLocationsOnly"/>
 
         <CheckBox
@@ -30,7 +31,8 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_start_logging"
             android:textColor="@color/navbarIconActive"
-            android:buttonTint="@color/navbarIconActive"
+            android:button="@drawable/toggle_selector"
+            android:paddingStart="12dp"
             android:layout_marginStart="24dp"
             android:id="@+id/logview_startLogging"/>
 

@@ -29,30 +29,6 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp">
 
-            <!-- GPS status indicator -->
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:id="@+id/notification_bulb"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/circle_none"
-                    android:contentDescription="GPS fix status" />
-
-                <ProgressBar
-                    android:id="@+id/progressBarGpsFix"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center"
-                    android:indeterminateOnly="true"
-                    android:visibility="invisible" />
-
-            </FrameLayout>
-
             <ImageView
                 android:id="@+id/navAnnotate"
                 android:layout_width="0dp"

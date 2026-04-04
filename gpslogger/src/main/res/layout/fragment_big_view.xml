@@ -23,6 +23,7 @@
 
     <TextView
         android:id="@+id/bigview_text_long"
+        android:layout_marginTop="-60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/navbarIconActive"
