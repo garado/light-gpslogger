@@ -17,7 +17,7 @@
         android:title="@string/display_imperial_title"
         app:iconSpaceReserved="false" />
 
-    <ListPreference
+    <Preference
         android:key="coordinatedisplayformat"
         android:title="@string/coordinate_display_format"
         app:iconSpaceReserved="false" />
@@ -75,17 +75,14 @@
         app:iconSpaceReserved="false" />
 
     <!--https://www.flaticon.com/free-icon/dark-mode_5262027-->
-    <ListPreference
-        android:defaultValue="system"
-        android:entries="@array/app_theme_options"
-        android:entryValues="@array/app_theme_values"
+    <Preference
         android:icon="@drawable/dark_mode"
         android:key="app_theme_setting"
         android:title="@string/app_theme_title"
         app:iconSpaceReserved="false" />
 
     <!--https://www.flaticon.com/free-icon/translate_889588-->
-    <ListPreference
+    <Preference
         android:icon="@drawable/translate"
         android:key="changelanguage"
         android:summary="@string/change_language_summary"

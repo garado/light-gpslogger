@@ -97,6 +97,12 @@
             android:parentActivityName=".GpsMainActivity"
             android:exported="false" />
 
+        <activity android:name=".SettingsGeneralActivity"     android:exported="false" />
+        <activity android:name=".SettingsLoggingActivity"     android:exported="false" />
+        <activity android:name=".SettingsPerformanceActivity" android:exported="false" />
+        <activity android:name=".TextInputActivity"           android:exported="false" />
+        <activity android:name=".ListSelectionActivity"       android:exported="false" />
+
         <activity
             android:name=".ViewSelectorActivity"
             android:parentActivityName=".GpsMainActivity"

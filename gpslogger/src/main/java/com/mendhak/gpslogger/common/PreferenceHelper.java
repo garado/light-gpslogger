@@ -537,6 +537,10 @@ public class PreferenceHelper {
         return prefs.getString(PreferenceNames.APP_THEME_SETTING, "system");
     }
 
+    public void setAppThemeSetting(String value) {
+        prefs.edit().putString(PreferenceNames.APP_THEME_SETTING, value).apply();
+    }
+
     /**
      * Display format to use for lat long coordinates on screen
      * DEGREES_MINUTES_SECONDS, DEGREES_DECIMAL_MINUTES, DECIMAL_DEGREES

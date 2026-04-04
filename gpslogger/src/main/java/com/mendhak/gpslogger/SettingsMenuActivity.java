@@ -27,7 +27,6 @@ public class SettingsMenuActivity extends AppCompatActivity {
         item(R.id.settings_item_general,     MainPreferenceActivity.PREFERENCE_FRAGMENTS.GENERAL);
         item(R.id.settings_item_logging,     MainPreferenceActivity.PREFERENCE_FRAGMENTS.LOGGING);
         item(R.id.settings_item_performance, MainPreferenceActivity.PREFERENCE_FRAGMENTS.PERFORMANCE);
-
         findViewById(R.id.settings_item_senders).setOnClickListener(v ->
                 startActivity(new Intent(this, SettingsSendersActivity.class)));
         findViewById(R.id.settings_item_other).setOnClickListener(v ->

@@ -19,6 +19,7 @@
 
 package com.mendhak.gpslogger.ui.fragments.settings;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -26,17 +27,23 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.text.Html;
+import android.text.InputType;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
+
 import com.codekidlabs.storagechooser.StorageChooser;
 import com.mendhak.gpslogger.BuildConfig;
+import com.mendhak.gpslogger.ListSelectionActivity;
 import com.mendhak.gpslogger.MainPreferenceActivity;
 import com.mendhak.gpslogger.R;
+import com.mendhak.gpslogger.TextInputActivity;
 import com.mendhak.gpslogger.common.PreferenceHelper;
 import com.mendhak.gpslogger.common.PreferenceNames;
 import com.mendhak.gpslogger.common.Strings;
@@ -46,16 +53,13 @@ import com.mendhak.gpslogger.ui.Dialogs;
 import com.mendhak.gpslogger.ui.components.SwitchPlusClickPreference;
 
 import org.slf4j.Logger;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
 import eltos.simpledialogfragment.SimpleDialog;
-import eltos.simpledialogfragment.form.Check;
-import eltos.simpledialogfragment.form.Input;
-import eltos.simpledialogfragment.form.SimpleFormDialog;
-import eltos.simpledialogfragment.list.SimpleListDialog;
 
 public class LoggingSettingsFragment extends PreferenceFragmentCompat
         implements
@@ -66,6 +70,38 @@ public class LoggingSettingsFragment extends PreferenceFragmentCompat
 
     private static final Logger LOG = Logs.of(LoggingSettingsFragment.class);
     private static PreferenceHelper preferenceHelper = PreferenceHelper.getInstance();
+
+    private final ActivityResultLauncher<Intent> listLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) return;
+                        String value = result.getData().getStringExtra(ListSelectionActivity.EXTRA_VALUE);
+                        if (value == null) return;
+                        preferenceHelper.setNewFileCreationMode(value);
+                        findPreference(PreferenceNames.NEW_FILE_CREATION_MODE)
+                                .setSummary(getFileCreationLabelFromValue(value));
+                        setPreferencesEnabledDisabled();
+                    });
+
+    private final ActivityResultLauncher<Intent> textLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) return;
+                        String key   = result.getData().getStringExtra(TextInputActivity.EXTRA_KEY);
+                        String value = result.getData().getStringExtra(TextInputActivity.EXTRA_VALUE);
+                        if (key == null || value == null) return;
+                        switch (key) {
+                            case PreferenceNames.CUSTOM_FILE_NAME:
+                                preferenceHelper.setCustomFileName(value);
+                                findPreference(PreferenceNames.CUSTOM_FILE_NAME).setSummary(value);
+                                break;
+                            case PreferenceNames.LOG_TO_CSV_DELIMITER:
+                                String delim = value.length() > 0 ? value.substring(0, 1) : ",";
+                                preferenceHelper.setCSVDelimiter(delim);
+                                setPreferenceCsvSummary(delim, preferenceHelper.shouldCSVUseCommaInsteadOfPoint());
+                                break;
+                        }
+                    });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -179,39 +215,26 @@ public class LoggingSettingsFragment extends PreferenceFragmentCompat
     public boolean onPreferenceClick(Preference preference) {
 
         if(preference.getKey().equalsIgnoreCase(PreferenceNames.NEW_FILE_CREATION_MODE)){
-
-            String[] values = getResources().getStringArray(R.array.filecreation_values);
-            ArrayList<String> valuesArray = new ArrayList<>(Arrays.asList(values));
-            int position = valuesArray.indexOf(preferenceHelper.getNewFileCreationMode());
-
-            SimpleListDialog.build()
-                    .title(R.string.new_file_creation_title)
-                    .msg(R.string.new_file_creation_summary)
-                    .pos(R.string.ok)
-                    .items(getActivity(), R.array.filecreation_entries)
-                    .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
-                    .choicePreset(position)
-                    .show(this, PreferenceNames.NEW_FILE_CREATION_MODE);
+            String[] entries = getResources().getStringArray(R.array.filecreation_entries);
+            String[] values  = getResources().getStringArray(R.array.filecreation_values);
+            Intent intent = new Intent(getActivity(), ListSelectionActivity.class);
+            intent.putExtra(ListSelectionActivity.EXTRA_TITLE, getString(R.string.new_file_creation_title));
+            intent.putExtra(ListSelectionActivity.EXTRA_KEY, PreferenceNames.NEW_FILE_CREATION_MODE);
+            intent.putExtra(ListSelectionActivity.EXTRA_ENTRIES, entries);
+            intent.putExtra(ListSelectionActivity.EXTRA_VALUES, values);
+            intent.putExtra(ListSelectionActivity.EXTRA_CURRENT_VALUE, preferenceHelper.getNewFileCreationMode());
+            listLauncher.launch(intent);
             return true;
         }
 
         if(preference.getKey().equalsIgnoreCase("log_plain_text_csv_advanced")){
-            SimpleFormDialog.build()
-                    .title(R.string.log_plain_text_csv_advanced_title)
-                    .pos(R.string.ok)
-                    .neg(R.string.cancel)
-                    .fields(
-                            Input.plain(PreferenceNames.LOG_TO_CSV_DELIMITER)
-                                    .hint(R.string.log_plain_text_csv_field_delimiter)
-                                    .text(preferenceHelper.getCSVDelimiter())
-                                    .max(1)
-                                    .min(1)
-                                    .required(),
-                            Check.box(PreferenceNames.LOG_TO_CSV_DECIMAL_COMMA)
-                                    .label(R.string.log_plain_text_decimal_comma)
-                                    .check(preferenceHelper.shouldCSVUseCommaInsteadOfPoint())
-                    )
-                    .show(this,"log_plain_text_csv_advanced");
+            Intent intent = new Intent(getActivity(), TextInputActivity.class);
+            intent.putExtra(TextInputActivity.EXTRA_TITLE, getString(R.string.log_plain_text_csv_advanced_title));
+            intent.putExtra(TextInputActivity.EXTRA_KEY, PreferenceNames.LOG_TO_CSV_DELIMITER);
+            intent.putExtra(TextInputActivity.EXTRA_VALUE, preferenceHelper.getCSVDelimiter());
+            intent.putExtra(TextInputActivity.EXTRA_INPUT_TYPE, InputType.TYPE_CLASS_TEXT);
+            textLauncher.launch(intent);
+            return true;
         }
 
         if(preference.getKey().equalsIgnoreCase(PreferenceNames.GPSLOGGER_FOLDER)){
@@ -252,22 +275,16 @@ public class LoggingSettingsFragment extends PreferenceFragmentCompat
         }
 
         if(preference.getKey().equalsIgnoreCase(PreferenceNames.CUSTOM_FILE_NAME)){
-
-            SimpleFormDialog.build()
-                    .title(R.string.new_file_custom_title)
-                    .msgHtml(getString(R.string.new_file_custom_summary) + "<br /><br/>" +  getString(R.string.new_file_custom_message))
-                    .pos(R.string.ok)
-                    .neg(R.string.cancel)
-                    .fields(
-                            Input.plain(PreferenceNames.CUSTOM_FILE_NAME)
-                                    .hint(R.string.letters_numbers)
-                                    .text(preferenceHelper.getCustomFileName())
-                                    .required()
-                    )
-                    .show(this,PreferenceNames.CUSTOM_FILE_NAME);
+            Intent intent = new Intent(getActivity(), TextInputActivity.class);
+            intent.putExtra(TextInputActivity.EXTRA_TITLE, getString(R.string.new_file_custom_title));
+            intent.putExtra(TextInputActivity.EXTRA_KEY, PreferenceNames.CUSTOM_FILE_NAME);
+            intent.putExtra(TextInputActivity.EXTRA_VALUE, preferenceHelper.getCustomFileName());
+            intent.putExtra(TextInputActivity.EXTRA_INPUT_TYPE, InputType.TYPE_CLASS_TEXT);
+            textLauncher.launch(intent);
+            return true;
         }
 
-        if(preference.getKey().equalsIgnoreCase(PreferenceNames.LOG_DELETE_FILES)){
+        if(preference.getKey().equalsIgnoreCase("delete_files")){
             StorageChooser chooser = Dialogs.multiFilePicker(getActivity(), PreferenceHelper.getInstance().getGpsLoggerFolder());
             chooser.setOnMultipleSelectListener(selectedFilePaths -> {
                 Dialogs.progress(getActivity(), getString(R.string.please_wait));
@@ -335,34 +352,9 @@ public class LoggingSettingsFragment extends PreferenceFragmentCompat
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
         if(which != BUTTON_POSITIVE){ return true; }
 
-        if(dialogTag.equalsIgnoreCase(PreferenceNames.CUSTOM_FILE_NAME)){
-            String customFilename = extras.getString(PreferenceNames.CUSTOM_FILE_NAME);
-            preferenceHelper.setCustomFileName(customFilename);
-            findPreference(PreferenceNames.CUSTOM_FILE_NAME).setSummary(preferenceHelper.getCustomFileName());
-        }
-
         if(dialogTag.equalsIgnoreCase("FILE_PERMISSIONS_REQUIRED")){
             Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
             getActivity().startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
-            return true;
-        }
-
-        if(dialogTag.equalsIgnoreCase(PreferenceNames.NEW_FILE_CREATION_MODE)){
-            String chosenLabel = extras.getString(SimpleListDialog.SELECTED_SINGLE_LABEL);
-            String chosenValue = getFileCreationValueFromLabel(chosenLabel);
-
-            preferenceHelper.setNewFileCreationMode(chosenValue);
-            findPreference(PreferenceNames.NEW_FILE_CREATION_MODE).setSummary(chosenLabel);
-            setPreferencesEnabledDisabled();
-            return true;
-        }
-
-        if(dialogTag.equalsIgnoreCase("log_plain_text_csv_advanced")){
-            String delimiter = extras.getString(PreferenceNames.LOG_TO_CSV_DELIMITER);
-            boolean useComma = extras.getBoolean(PreferenceNames.LOG_TO_CSV_DECIMAL_COMMA);
-            preferenceHelper.setCSVDelimiter(delimiter);
-            preferenceHelper.setShouldCSVUseCommaInsteadOfDecimal(useComma);
-            setPreferenceCsvSummary(preferenceHelper.getCSVDelimiter(), preferenceHelper.shouldCSVUseCommaInsteadOfPoint());
             return true;
         }
 
@@ -376,16 +368,6 @@ public class LoggingSettingsFragment extends PreferenceFragmentCompat
         String[] labels = getResources().getStringArray(R.array.filecreation_entries);
         String chosenLabel = labels[chosenIndex];
         return chosenLabel;
-    }
-
-    private String getFileCreationValueFromLabel(String label){
-        String[] labels = getResources().getStringArray(R.array.filecreation_entries);
-        ArrayList<String> valuesArray = new ArrayList<>(Arrays.asList(labels));
-        int chosenIndex = valuesArray.indexOf(label);
-
-        String[] values = getResources().getStringArray(R.array.filecreation_values);
-        String chosenValue = values[chosenIndex];
-        return chosenValue;
     }
 
 }
