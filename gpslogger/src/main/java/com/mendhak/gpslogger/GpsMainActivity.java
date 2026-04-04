@@ -1092,7 +1092,7 @@ public class GpsMainActivity extends AppCompatActivity
         ImageViewCompat.setImageTintList(navShare, ColorStateList.valueOf(activeColor));
         ImageViewCompat.setImageTintList(navSettings, ColorStateList.valueOf(activeColor));
 
-        navAnnotate.setOnClickListener(v -> annotate());
+        navAnnotate.setOnClickListener(v -> startActivity(new Intent(this, AnnotationInputActivity.class)));
         navOnePoint.setOnClickListener(v -> logSinglePoint());
         navShare.setOnClickListener(v -> share());
         navUpload.setOnClickListener(v -> {
