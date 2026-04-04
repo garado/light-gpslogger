@@ -23,13 +23,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.core.content.ContextCompat;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import com.dd.processbutton.iml.ActionProcessButton;
 import com.mendhak.gpslogger.R;
 import com.mendhak.gpslogger.common.EventBusHook;
 import com.mendhak.gpslogger.common.PreferenceHelper;
@@ -54,7 +52,7 @@ public class GpsDetailedViewFragment extends GenericViewFragment {
 
 
     private View rootView;
-    private ActionProcessButton actionButton;
+    private ImageView actionButton;
     private static final Logger LOG = Logs.of(GpsDetailedViewFragment.class);
     private PreferenceHelper preferenceHelper = PreferenceHelper.getInstance();
     private Session session = Session.getInstance();
@@ -77,15 +75,8 @@ public class GpsDetailedViewFragment extends GenericViewFragment {
 
         rootView = inflater.inflate(R.layout.fragment_detailed_view, container, false);
 
-        actionButton = (ActionProcessButton)rootView.findViewById(R.id.btnActionProcess);
-        actionButton.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.accentColor ));
-
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestToggleLogging();
-            }
-        });
+        actionButton = (ImageView) rootView.findViewById(R.id.btnActionProcess);
+        actionButton.setOnClickListener(v -> requestToggleLogging());
 
 
         if (session.hasValidLocation()) {
@@ -99,15 +90,11 @@ public class GpsDetailedViewFragment extends GenericViewFragment {
 
 
     private void setActionButtonStart(){
-        actionButton.setText(R.string.btn_start_logging);
-        actionButton.setBackgroundColor( ContextCompat.getColor(getActivity(), R.color.accentColor));
-        actionButton.setAlpha(0.8f);
+        actionButton.setImageResource(R.drawable.ic_play);
     }
 
     private void setActionButtonStop(){
-        actionButton.setText(R.string.btn_stop_logging);
-        actionButton.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.accentColorComplementary));
-        actionButton.setAlpha(0.8f);
+        actionButton.setImageResource(R.drawable.ic_pause);
     }
 
     @Override

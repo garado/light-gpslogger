@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:id="@+id/logviewlayout"
-    android:layout_marginBottom="55dp">
-
+    android:background="@color/navbarBackground"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp">
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/logview_showlocationsonly"
+            android:textColor="@color/navbarIconActive"
+            android:buttonTint="@color/navbarIconActive"
             android:id="@+id/logview_chkLocationsOnly"/>
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_start_logging"
+            android:textColor="@color/navbarIconActive"
+            android:buttonTint="@color/navbarIconActive"
+            android:layout_marginStart="24dp"
             android:id="@+id/logview_startLogging"/>
 
     </LinearLayout>
 
     <com.mendhak.gpslogger.ui.components.InteractiveScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/logview_scrollView"
-        android:layout_gravity="center_horizontal"
         android:fadeScrollbars="false">
 
         <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=""
             android:id="@+id/logview_txtstatus"
             android:fontFamily="monospace"
             android:typeface="monospace"
-            />
+            android:textColor="@color/navbarIconActive"
+            android:textSize="12sp" />
+
     </com.mendhak.gpslogger.ui.components.InteractiveScrollView>
 
 </LinearLayout>

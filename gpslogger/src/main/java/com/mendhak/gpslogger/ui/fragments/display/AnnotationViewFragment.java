@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.dd.processbutton.iml.ActionProcessButton;
+import android.widget.Button;
 import com.mendhak.gpslogger.R;
 import com.mendhak.gpslogger.common.EventBusHook;
 import com.mendhak.gpslogger.common.PreferenceHelper;
@@ -68,11 +68,10 @@ public class AnnotationViewFragment extends GenericViewFragment implements Simpl
 
         String color;
         String text;
-        ActionProcessButton actionButton;
+        Button actionButton;
 
-        ButtonWrapper(ActionProcessButton actionButton) {
+        ButtonWrapper(Button actionButton) {
             this.actionButton = actionButton;
-            this.actionButton.setMode(ActionProcessButton.Mode.ENDLESS);
         }
 
         String getText() {
@@ -198,15 +197,15 @@ public class AnnotationViewFragment extends GenericViewFragment implements Simpl
             this.context = getActivity().getApplicationContext();
         }
 
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b11)));
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b12)));
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b13)));
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b21)));
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b22)));
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b23)));
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b31)));
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b32)));
-        buttonList.add(new ButtonWrapper(rootView.findViewById(R.id.an_b33)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b11)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b12)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b13)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b21)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b22)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b23)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b31)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b32)));
+        buttonList.add(new ButtonWrapper((Button) rootView.findViewById(R.id.an_b33)));
 
         int i = 0;
         AnnotationViewFragment fragment = this;
@@ -245,13 +244,7 @@ public class AnnotationViewFragment extends GenericViewFragment implements Simpl
     }
 
     void updateButtons(boolean pending) {
-
         for (ButtonWrapper btnObj : buttonList) {
-            if (btnObj != selectedButton) {
-                btnObj.actionButton.setProgress(0);
-            } else {
-                btnObj.actionButton.setProgress(pending ? 1 : 0);
-            }
             btnObj.setText(btnObj.getText());
             btnObj.setColor(btnObj.getColor());
         }
