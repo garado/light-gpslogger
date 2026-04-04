@@ -93,6 +93,11 @@
         </activity>
 
         <activity
+            android:name=".ViewSelectorActivity"
+            android:parentActivityName=".GpsMainActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".AnnotationInputActivity"
             android:parentActivityName=".GpsMainActivity"
             android:exported="false"

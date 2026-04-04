@@ -562,6 +562,11 @@ public class GpsMainActivity extends AppCompatActivity
 
         populateProfilesList();
         enableDisableMenuItems();
+
+        int selected = getUserSelectedNavigationItem();
+        if (selected != lastLoadedViewPosition) {
+            loadFragmentView(selected);
+        }
     }
 
 
@@ -1027,6 +1032,8 @@ public class GpsMainActivity extends AppCompatActivity
         return preferenceHelper.getUserSelectedNavigationItem();
     }
 
+    private int lastLoadedViewPosition = -1;
+
     private void loadDefaultFragmentView() {
         int currentSelectedPosition = getUserSelectedNavigationItem();
         loadFragmentView(currentSelectedPosition);
@@ -1055,6 +1062,7 @@ public class GpsMainActivity extends AppCompatActivity
 
         }
         transaction.commitAllowingStateLoss();
+        lastLoadedViewPosition = position;
     }
 
     private GenericViewFragment getCurrentFragment(){
@@ -1083,6 +1091,7 @@ public class GpsMainActivity extends AppCompatActivity
         ImageView navOnePoint = findViewById(R.id.navOnePoint);
         ImageView navUpload = findViewById(R.id.navUpload);
         ImageView navShare = findViewById(R.id.navShare);
+        ImageView navViewSwitcher = findViewById(R.id.navViewSwitcher);
         ImageView navSettings = findViewById(R.id.navSettings);
 
         int activeColor = ContextCompat.getColor(this, R.color.navbarIconActive);
@@ -1090,6 +1099,7 @@ public class GpsMainActivity extends AppCompatActivity
         ImageViewCompat.setImageTintList(navOnePoint, ColorStateList.valueOf(activeColor));
         ImageViewCompat.setImageTintList(navUpload, ColorStateList.valueOf(activeColor));
         ImageViewCompat.setImageTintList(navShare, ColorStateList.valueOf(activeColor));
+        ImageViewCompat.setImageTintList(navViewSwitcher, ColorStateList.valueOf(activeColor));
         ImageViewCompat.setImageTintList(navSettings, ColorStateList.valueOf(activeColor));
 
         navAnnotate.setOnClickListener(v -> startActivity(new Intent(this, AnnotationInputActivity.class)));
@@ -1101,6 +1111,7 @@ public class GpsMainActivity extends AppCompatActivity
             popup.setOnMenuItemClickListener(this::onMenuItemClick);
             popup.show();
         });
+        navViewSwitcher.setOnClickListener(v -> startActivity(new Intent(this, ViewSelectorActivity.class)));
         navSettings.setOnClickListener(v -> startActivity(new Intent(this, SettingsMenuActivity.class)));
 
         enableDisableMenuItems();
