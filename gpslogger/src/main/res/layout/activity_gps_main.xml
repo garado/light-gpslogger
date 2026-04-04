@@ -56,15 +56,64 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
         </FrameLayout>
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarBottom"
+        <LinearLayout
+            android:id="@+id/bottomNavbar"
             android:layout_gravity="bottom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:visibility="visible"
-            android:background="@color/primaryColor"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            />
+            android:orientation="horizontal"
+            android:background="@color/navbarBackground"
+            android:paddingTop="11dp"
+            android:paddingBottom="11dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <ImageView
+                android:id="@+id/navAnnotate"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:src="@drawable/annotate2"
+                android:contentDescription="@string/menu_annotate"
+                android:scaleType="center" />
+
+            <ImageView
+                android:id="@+id/navOnePoint"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:src="@drawable/singlepoint"
+                android:contentDescription="@string/menu_onepoint"
+                android:scaleType="center" />
+
+            <ImageView
+                android:id="@+id/navUpload"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:src="@drawable/upload"
+                android:contentDescription="@string/menu_upload"
+                android:scaleType="center" />
+
+            <ImageView
+                android:id="@+id/navShare"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:src="@drawable/share"
+                android:contentDescription="@string/menu_share"
+                android:scaleType="center" />
+
+            <ImageView
+                android:id="@+id/navSettings"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:src="@drawable/settings"
+                android:contentDescription="Settings"
+                android:scaleType="center" />
+
+        </LinearLayout>
     </FrameLayout>
 
 

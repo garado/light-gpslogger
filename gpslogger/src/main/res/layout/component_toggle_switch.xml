@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Equivalent to light-template: ToggleSwitch.tsx
+     Usage: inflate this layout, set toggle_label text.
+     Toggle state in code:
+       imageView.setImageResource(checked ? R.drawable.toggle_on : R.drawable.toggle_off)
+     Set click listener on the root view to flip state. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toggle_switch"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground"
+    android:paddingTop="9dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Toggle graphic: swap between toggle_on and toggle_off drawables in code -->
+    <ImageView
+        android:id="@+id/toggle_graphic"
+        android:layout_width="25dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="13dp"
+        android:src="@drawable/toggle_off"
+        android:contentDescription="Toggle" />
+
+    <!-- Label -->
+    <TextView
+        android:id="@+id/toggle_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/navbarIconActive"
+        android:textSize="30sp" />
+
+</LinearLayout>

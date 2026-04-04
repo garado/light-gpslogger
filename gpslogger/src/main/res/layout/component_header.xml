@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Equivalent to light-template: Header.tsx
+     Usage: <include layout="@layout/component_header" />
+     IDs: header_back_button, header_title, header_right_action -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/navbarBackground"
+    android:paddingStart="22dp"
+    android:paddingEnd="22dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <!-- Back button (hide with android:visibility="invisible" to preserve spacing) -->
+    <ImageButton
+        android:id="@+id/header_back_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="Back"
+        android:scaleType="center"
+        android:tint="@color/navbarIconActive" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/navbarIconActive"
+        android:textSize="20sp"
+        android:paddingTop="2dp" />
+
+    <!-- Right action button (hide with android:visibility="invisible" to preserve spacing) -->
+    <ImageButton
+        android:id="@+id/header_right_action"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Action"
+        android:scaleType="center"
+        android:tint="@color/navbarIconActive"
+        android:visibility="invisible" />
+
+</LinearLayout>

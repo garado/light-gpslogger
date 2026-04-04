@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Equivalent to light-template: Navbar.tsx
+     Usage: <include layout="@layout/component_navbar" />
+     Add ImageViews for your tabs with layout_weight="1" and set click listeners in code.
+     Tint active icons with @color/navbarIconActive, inactive with @color/navbarIconInactive. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/navbarBackground"
+    android:paddingTop="11dp"
+    android:paddingBottom="11dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
+
+    <!-- Add ImageView children here with layout_weight="1" per tab.
+         Example:
+         <ImageView
+             android:id="@+id/nav_home"
+             android:layout_width="0dp"
+             android:layout_height="48dp"
+             android:layout_weight="1"
+             android:src="@drawable/ic_home"
+             android:scaleType="center" /> -->
+
+</LinearLayout>

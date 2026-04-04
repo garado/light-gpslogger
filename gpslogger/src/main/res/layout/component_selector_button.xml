@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Equivalent to light-template: SelectorButton.tsx
+     Usage: inflate this layout, set selector_label and selector_value text,
+            then call setOnClickListener on the root to navigate to the options screen. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/selector_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?attr/selectableItemBackground"
+    android:paddingTop="7dp"
+    android:paddingBottom="10dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Label (smaller, above) -->
+    <TextView
+        android:id="@+id/selector_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/navbarIconActive"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <!-- Value (larger, below) -->
+    <TextView
+        android:id="@+id/selector_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/navbarIconActive"
+        android:textSize="30sp" />
+
+</LinearLayout>

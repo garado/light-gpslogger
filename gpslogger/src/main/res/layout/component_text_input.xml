@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Equivalent to light-template: TextInput.tsx
+     Usage: inflate this layout.
+     IDs: text_input_field, text_input_clear
+     - Set hint on text_input_field for placeholder.
+     - Show/hide text_input_clear based on text content in an addTextChangedListener. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/navbarBackground">
+
+    <!-- Bottom border via a wrapper -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bottom_border_white">
+
+        <EditText
+            android:id="@+id/text_input_field"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/navbarIconActive"
+            android:textColorHint="@color/navbarIconActive"
+            android:textSize="24sp"
+            android:background="@null"
+            android:paddingTop="2dp"
+            android:paddingBottom="6dp"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:autoCorrect="false"
+            android:capitalize="none" />
+
+        <ImageButton
+            android:id="@+id/text_input_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="@color/navbarIconActive"
+            android:contentDescription="Clear"
+            android:padding="5dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

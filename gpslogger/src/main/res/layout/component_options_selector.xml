@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Equivalent to light-template: OptionsSelector.tsx
+     Usage: use as a full-screen layout.
+     Inflate component_styled_button.xml for each option and add to options_container.
+     Mark the selected option by setting Paint.UNDERLINE_TEXT_FLAG on its TextView. -->
+<include layout="@layout/component_content_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />

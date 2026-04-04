@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Equivalent to light-template: StyledButton.tsx
+     Usage: inflate this layout and set text on styled_button_text.
+     For "selected" state, add/remove the underline TextPaint flag in code:
+       tv.setPaintFlags(tv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG) -->
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/styled_button_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/navbarIconActive"
+    android:textSize="30sp"
+    android:background="?attr/selectableItemBackground"
+    android:padding="4dp"
+    android:maxLines="1"
+    android:ellipsize="end" />
