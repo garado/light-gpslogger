@@ -30,8 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_gravity="right|bottom"
-            android:background="@android:color/transparent"
-            android:tint="@color/navbarIconInactive" />
+            android:background="@android:color/transparent" />
 
     </com.ms.square.android.expandabletextview.ExpandableTextView>
 
