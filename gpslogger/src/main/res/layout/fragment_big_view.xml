@@ -5,33 +5,59 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/navbarBackground"
-    android:gravity="center_vertical"
+    android:gravity="center"
     android:paddingStart="37dp"
-    android:paddingEnd="37dp">
+    android:paddingEnd="37dp"
+    android:paddingBottom="70dp">
 
-    <TextView
-        android:id="@+id/bigview_text_lat"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/navbarIconActive"
-        android:textSize="@dimen/bigview_textsize"
-        android:maxLines="1"
-        android:adjustViewBounds="true"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeMaxTextSize="@dimen/bigview_textsize" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/bigview_text_long"
-        android:layout_marginTop="-60dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/navbarIconActive"
-        android:textSize="@dimen/bigview_textsize"
-        android:maxLines="1"
-        android:adjustViewBounds="true"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeMaxTextSize="@dimen/bigview_textsize" />
+        <TextView
+            android:id="@+id/location_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Waiting for GPS..."
+            android:textSize="24sp"
+            android:textColor="@color/navbarIconActive"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/bigview_data_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" 
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/bigview_text_lat"
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:includeFontPadding="false"
+                android:textColor="@color/navbarIconActive"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textSize="50sp"
+                android:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/bigview_text_long"
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:includeFontPadding="false"
+                android:textColor="@color/navbarIconActive"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textSize="50sp"
+                android:autoSizeTextType="uniform" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

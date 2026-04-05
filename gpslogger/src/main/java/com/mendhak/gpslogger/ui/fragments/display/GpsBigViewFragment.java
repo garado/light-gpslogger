@@ -80,24 +80,34 @@ public class GpsBigViewFragment extends GenericViewFragment implements View.OnTo
         if(loggingStatus.loggingStarted){
             TextView txtLat = (TextView) rootView.findViewById(R.id.bigview_text_lat);
             TextView txtLong = (TextView) rootView.findViewById(R.id.bigview_text_long);
-            txtLat.setText("");
-            txtLong.setText("");
+            txtLat.setText("-");
+            txtLong.setText("-");
         }
     }
 
-    public void displayLocationInfo(Location locationInfo){
-
-        TextView txtLat = (TextView) rootView.findViewById(R.id.bigview_text_lat);
-        TextView txtLong = (TextView) rootView.findViewById(R.id.bigview_text_long);
+    public void displayLocationInfo(Location locationInfo) {
+        View dataContainer = rootView.findViewById(R.id.bigview_data_container);
+        TextView placeholder = (TextView) rootView.findViewById(R.id.location_placeholder);
 
         if (locationInfo != null) {
-            txtLat.setText(String.valueOf(Strings.getFormattedLatitude(locationInfo.getLatitude())));
+            placeholder.setVisibility(View.GONE);
+            dataContainer.setVisibility(View.VISIBLE);
 
-            txtLong.setText(String.valueOf(Strings.getFormattedLongitude(locationInfo.getLongitude())));
-        } else if (session.isStarted()) {
-            txtLat.setText("...");
+            TextView txtLat = (TextView) rootView.findViewById(R.id.bigview_text_lat);
+            TextView txtLong = (TextView) rootView.findViewById(R.id.bigview_text_long);
+
+            txtLat.setText(Strings.getFormattedLatitude(locationInfo.getLatitude()));
+            txtLong.setText(Strings.getFormattedLongitude(locationInfo.getLongitude()));
+
         } else {
-            txtLat.setText(R.string.bigview_taptotoggle);
+            dataContainer.setVisibility(View.GONE);
+            placeholder.setVisibility(View.VISIBLE);
+
+            if (session.isStarted()) {
+                placeholder.setText("..."); 
+            } else {
+                placeholder.setText(R.string.bigview_taptotoggle);
+            }
         }
     }
 
