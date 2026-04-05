@@ -52,7 +52,7 @@
     <!--    See values-night/styles.xml for dark theme overridden values.-->
     <color name="primaryColor">#607d8b</color>
     <color name="primaryColorDark">#455a64</color>
-    <color name="accentColor">#448aff</color>
+    <color name="accentColor">#FFFFFF</color>
     <color name="errorColor">#FF5252</color>
     <color name="warningColor">#ffbd60</color>
     <color name="accentColorComplementary">#4CAF50</color>
@@ -101,7 +101,7 @@
 
     <color name="colorPrimaryBlack">#000000</color>
     <color name="colorPrimaryBlackDark">#000000</color>
-    <color name="colorAccentBlack">#427add</color>
+    <color name="colorAccentBlack">#FFFFFF</color>
     <color name="surfaceDark">#121212</color>
 
 
