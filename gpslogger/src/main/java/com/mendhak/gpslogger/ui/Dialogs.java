@@ -177,14 +177,13 @@ public class Dialogs {
     }
 
     public static void progress(FragmentActivity activity, String title){
-        simpleProgress = SimpleProgressDialog.bar().title(title).neut(R.string.hide);
-        simpleProgress.show(activity);
+        android.content.Intent intent = new android.content.Intent(activity, com.mendhak.gpslogger.ProgressActivity.class);
+        intent.putExtra(com.mendhak.gpslogger.ProgressActivity.EXTRA_TITLE, title);
+        activity.startActivity(intent);
     }
 
     public static void hideProgress() {
-        if(simpleProgress!=null){
-            simpleProgress.dismiss();
-        }
+        com.mendhak.gpslogger.ProgressActivity.dismiss();
     }
 
     public static void autoSuggestDialog(final FragmentActivity activity, final String cacheKey,
