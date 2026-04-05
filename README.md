@@ -19,4 +19,7 @@ A Light Phone III-style reskin of [GPSLogger](https://github.com/mendhak/gpslogg
 > [!WARNING]
 > Settings from the original GPSLogger app will not be carried over.
 
-TODO
+> [!WARNING]
+> Only the Custom URL upload method has been used and tested. Other upload methods may have improper-looking UIs or may not work correctly.
+
+I recommend installing with Obtainium. Releases are also available [here](https://github.com/garado/light-gpslogger/releases).
