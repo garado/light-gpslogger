@@ -1,8 +1,6 @@
 package com.mendhak.gpslogger;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,19 +25,13 @@ public class ProgressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         instance = this;
         Systems.setLocale(PreferenceHelper.getInstance().getUserSpecifiedLocale(), getBaseContext(), getResources());
-        setContentView(R.layout.activity_list_selection);
+        setContentView(R.layout.activity_progress);
 
         String title = getIntent().getStringExtra(EXTRA_TITLE);
-        if (title == null) title = getString(R.string.please_wait);
+        if (title == null) title = getString(R.string.uploading_data);
 
-        findViewById(R.id.header).setVisibility(View.VISIBLE);
-        ((TextView) findViewById(R.id.header_title)).setText(title);
-        findViewById(R.id.header_back_button).setVisibility(View.INVISIBLE);
-
-        ImageButton hideBtn = findViewById(R.id.header_right_action);
-        hideBtn.setImageResource(R.drawable.ic_arrow_back);
-        hideBtn.setVisibility(View.VISIBLE);
-        hideBtn.setOnClickListener(v -> finish());
+        ((TextView) findViewById(R.id.progress_message)).setText(title);
+        findViewById(R.id.progress_dismiss).setOnClickListener(v -> finish());
     }
 
     @Override

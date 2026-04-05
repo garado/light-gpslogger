@@ -180,6 +180,7 @@
     <string name="autoemail_title">Email</string>
 
     <string name="please_wait">Please wait</string>
+    <string name="uploading_data">Your data is being uploaded.</string>
 
 
     <string name="autoemail_target">Target email addresses</string>
