@@ -240,6 +240,38 @@ public class GpsMainActivity extends AppCompatActivity
                         }
                     });
 
+    private final ActivityResultLauncher<Intent> filePickerLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null) return;
+                        ArrayList<String> selectedItems = result.getData().getStringArrayListExtra(FileShareActivity.EXTRA_SELECTED);
+                        String senderName = result.getData().getStringExtra(FileShareActivity.EXTRA_SENDER);
+                        if (selectedItems == null || selectedItems.isEmpty() || senderName == null) return;
+
+                        if (senderName.equalsIgnoreCase(FileSender.SenderNames.OPENSTREETMAP)) {
+                            Bundle extra = new Bundle();
+                            extra.putString("SENDER_NAME", senderName);
+                            extra.putStringArrayList(SimpleListDialog.SELECTED_LABELS, selectedItems);
+                            SimpleFormDialog.build()
+                                    .title(R.string.osm_setup_title)
+                                    .extra(extra)
+                                    .fields(Dialogs.getOpenStreetMapFormElementsForDialog(preferenceHelper).toArray(new FormElement[0]))
+                                    .pos(R.string.ok)
+                                    .show(GpsMainActivity.this, "FILE_UPLOAD_DIALOG");
+                        } else {
+                            final File gpxFolder = new File(preferenceHelper.getGpsLoggerFolder());
+                            List<File> chosenFiles = new ArrayList<>();
+                            for (String item : selectedItems) {
+                                chosenFiles.add(new File(gpxFolder, item));
+                            }
+                            if (!chosenFiles.isEmpty()) {
+                                Dialogs.progress(GpsMainActivity.this, getString(R.string.please_wait));
+                                userInvokedUpload = true;
+                                FileSenderFactory.getSenderByName(senderName).uploadFile(chosenFiles);
+                            }
+                        }
+                    });
+
     private final ActivityResultLauncher<Intent> fileShareLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
@@ -378,23 +410,6 @@ public class GpsMainActivity extends AppCompatActivity
             LOG.info("Annotation entered : " + enteredText);
             EventBus.getDefault().post(new CommandEvents.Annotate(enteredText));
             Files.addItemToCacheFile(enteredText, "annotations", GpsMainActivity.this);
-            return true;
-        }
-
-        if(dialogTag.equalsIgnoreCase("OSM_FILE_UPLOAD_DIALOG") && which == BUTTON_POSITIVE){
-            //As a special case.  For OSM, let user set the description, tags, before passing details along to the actual upload step.
-
-            Bundle extra = new Bundle();
-            //Pass along the sender name and list of files, from the previous dialog.
-            extra.putString("SENDER_NAME", extras.getString("SENDER_NAME"));
-            extra.putStringArrayList(SimpleListDialog.SELECTED_LABELS, extras.getStringArrayList(SimpleListDialog.SELECTED_LABELS));
-
-            SimpleFormDialog.build()
-                    .title(R.string.osm_setup_title)
-                    .extra(extra)
-                    .fields(Dialogs.getOpenStreetMapFormElementsForDialog(preferenceHelper).toArray(new FormElement[0]))
-                    .pos(R.string.ok)
-                    .show(this, "FILE_UPLOAD_DIALOG");
             return true;
         }
 
@@ -1327,21 +1342,10 @@ public class GpsMainActivity extends AppCompatActivity
 
             final String[] files = fileList.toArray(new String[fileList.size()]);
 
-            Bundle extra = new Bundle();
-            extra.putString("SENDER_NAME", sender.getName());
-            String dialogTag = "FILE_UPLOAD_DIALOG";
-
-            //As a special case.  If it's an OpenStreetMap upload, let user set description, tags before upload.
-            if(sender.getName().equalsIgnoreCase(FileSender.SenderNames.OPENSTREETMAP)){
-                dialogTag = "OSM_FILE_UPLOAD_DIALOG";
-            }
-
-            SimpleListDialog.build()
-                    .title(R.string.osm_pick_file)
-                    .extra(extra)
-                    .items(files)
-                    .choiceMode(CustomListDialog.MULTI_CHOICE)
-                    .show(GpsMainActivity.this, dialogTag);
+            Intent intent = new Intent(this, FileShareActivity.class);
+            intent.putExtra(FileShareActivity.EXTRA_FILES, files);
+            intent.putExtra(FileShareActivity.EXTRA_SENDER, sender.getName());
+            filePickerLauncher.launch(intent);
 
         } else {
             Dialogs.alert(getString(R.string.sorry), getString(R.string.no_files_found), this);

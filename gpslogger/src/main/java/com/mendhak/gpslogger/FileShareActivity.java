@@ -25,6 +25,9 @@ import java.util.Set;
 public class FileShareActivity extends AppCompatActivity {
 
     public static final String EXTRA_SELECTED = "FILE_SHARE_SELECTED";
+    // Optional: pass a pre-filtered file list + sender for the upload flow
+    public static final String EXTRA_FILES    = "FILE_SHARE_FILES";
+    public static final String EXTRA_SENDER   = "FILE_SHARE_SENDER";
 
     private final Set<String> selectedFiles = new LinkedHashSet<>();
 
@@ -38,18 +41,24 @@ public class FileShareActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.header_title)).setText(R.string.osm_pick_file);
         findViewById(R.id.header_back_button).setOnClickListener(v -> finish());
 
+        boolean isUploadMode = getIntent().hasExtra(EXTRA_FILES);
+
         ImageButton rightAction = findViewById(R.id.header_right_action);
-        rightAction.setImageResource(R.drawable.share);
+        rightAction.setImageResource(isUploadMode ? R.drawable.upload : R.drawable.share);
         rightAction.setVisibility(View.VISIBLE);
         rightAction.setOnClickListener(v -> confirm());
 
-        loadFiles();
+        if (isUploadMode) {
+            loadFromExtras();
+        } else {
+            loadAllFiles();
+        }
     }
 
-    private void loadFiles() {
+    private void loadAllFiles() {
         LinearLayout container = findViewById(R.id.content_inner);
         LayoutInflater inflater = LayoutInflater.from(this);
-        int marginPx = (int) (15 * getResources().getDisplayMetrics().density);
+        int marginPx = marginPx();
 
         addButton(container, inflater, getString(R.string.sharing_location_only), marginPx);
 
@@ -60,6 +69,19 @@ public class FileShareActivity extends AppCompatActivity {
             for (File f : files) {
                 addButton(container, inflater, f.getName(), marginPx);
             }
+        }
+    }
+
+    private void loadFromExtras() {
+        String[] files = getIntent().getStringArrayExtra(EXTRA_FILES);
+        if (files == null) { finish(); return; }
+
+        LinearLayout container = findViewById(R.id.content_inner);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        int marginPx = marginPx();
+
+        for (String name : files) {
+            addButton(container, inflater, name, marginPx);
         }
     }
 
@@ -87,13 +109,17 @@ public class FileShareActivity extends AppCompatActivity {
     }
 
     private void confirm() {
-        if (selectedFiles.isEmpty()) {
-            finish();
-            return;
-        }
+        if (selectedFiles.isEmpty()) { finish(); return; }
         Intent result = new Intent();
         result.putStringArrayListExtra(EXTRA_SELECTED, new ArrayList<>(selectedFiles));
+        if (getIntent().hasExtra(EXTRA_SENDER)) {
+            result.putExtra(EXTRA_SENDER, getIntent().getStringExtra(EXTRA_SENDER));
+        }
         setResult(Activity.RESULT_OK, result);
         finish();
+    }
+
+    private int marginPx() {
+        return (int) (15 * getResources().getDisplayMetrics().density);
     }
 }
