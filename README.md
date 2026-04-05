@@ -9,10 +9,6 @@ A Light Phone III-style reskin of [GPSLogger](https://github.com/mendhak/gpslogg
     <img src="./.github/images/view_big.png" height=300>
     <img src="./.github/images/view_simple.png" height=300>
     <img src="./.github/images/view_detailed.png" height=300>
-    <img src="./.github/images/view_log.png" height=300>
-</p>
-
-<p align="center">
     <img src="./.github/images/settings_main.png" height=300>
     <img src="./.github/images/settings_upload.png" height=300>
     <img src="./.github/images/settings_performance.png" height=300>
